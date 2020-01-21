@@ -1,0 +1,30 @@
+package com.example.coach.service;
+
+import com.example.coach.model.User;
+import com.example.coach.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
+@Service
+public class UserService {
+
+    private UserRepository userRepository;
+
+
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+
+    }
+
+    public void saveUser(User user){
+
+        userRepository.save(user);
+    }
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+}
