@@ -5,6 +5,26 @@
     <title>Title</title>
 </head>
 <body>
+<p>User:</p>
+<p th:text=${currentlyLoggedUser.login}></p>
+<p>Users name</p>
+<p th:text="${currentlyLoggedUser.name}"></p>
+<table>
+    <thead>
+    <tr>
+        <th>Workout</th>
+        <th>Show progress</th>
+        <th>Add workout result</th>
+    </tr>
+    </thead>
+    <tbody>
 
+    <tr th:each="workout : ${workoutList}">
+        <td th:text="${workout.name}"></td>
+        <td><button>Show</button></td>
+        <td><button>Add</button></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

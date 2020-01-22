@@ -17,6 +17,9 @@ public class User {
     private List<Workout> workouts;
 
 
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

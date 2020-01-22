@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>AddWorkoutResult</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Exercise</th>
+        <th>Load</th>
+        <th>Reps</th>
+        <th>Time [s]</th>
+        <th>Day!</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.login}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
