@@ -6,7 +6,7 @@
     <title>AddWorkoutResult</title>
 </head>
 <body>
-<table>
+<!--<table>
     <thead>
     <tr>
         <th>Exercise</th>
@@ -17,13 +17,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.surname}"></td>
-        <td th:text="${user.login}"></td>
-    </tr>
+    <tr>-->
+        <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToInsert}" method="post">
+        <input type="text" id="load" name="load" th:field="*{load}">
+        <input type="text" id="reps" name="reps" th:field="*{reps}">
+        <input type="text" id="timeInSeconds" name="timeInSeconds" th:field="*{timeInSeconds}">
+
+        <input type="submit" value="Submit" />
+        </form>
+ <!--   </tr>
+
     </tbody>
 </table>
-
+-->
 </body>
 </html>

@@ -22,7 +22,9 @@
     <tr th:each="workout : ${workoutList}">
         <td th:text="${workout.name}"></td>
         <td><button>Show</button></td>
-        <td><button>Add</button></td>
+        <form action="/addWorkoutResult" method="get">
+        <td><input type="submit" value="Add"></td>
+        </form>
     </tr>
     </tbody>
 </table>
