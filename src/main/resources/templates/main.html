@@ -21,7 +21,10 @@
 
     <tr th:each="workout : ${workoutList}">
         <td th:text="${workout.name}"></td>
-        <td><button>Show</button></td>
+        <form action="/showWorkoutResults" method="get">
+            <input type="hidden" name="workoutId" th:value="${workout.id}">
+        <td><input type="submit" value="Show"></td>
+        </form>
         <form action="/addWorkoutResult" method="get">
         <td><input type="submit" value="Add"></td>
         </form>

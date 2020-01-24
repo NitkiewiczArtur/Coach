@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <title>Coach</title>
+</head>
+<body>
+<section>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Coach</h1>
+            <p>Wynik treningu </p>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+
+                <div class="pane-body">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Load</th>
+                            <th>reps</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="exercise : ${exerciseResultList}">
+
+                            <td th:text="${exercise.load}"></td>
+                            <td th:text="${exercise.reps}"></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

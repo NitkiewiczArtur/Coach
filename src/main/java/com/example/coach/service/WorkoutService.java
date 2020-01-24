@@ -20,7 +20,7 @@ public class WorkoutService {
     public void saveWorkout(Workout workout){
         workoutRepository.save(workout);
     }
-    public List<Workout> getUsersWorkouts(Long usersId){
+    public List<Workout>    getUsersWorkouts(Long usersId){
         return workoutRepository.getWorkoutsByUsers_Id(usersId);
     }
 

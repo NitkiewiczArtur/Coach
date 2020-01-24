@@ -20,7 +20,7 @@ public class ExerciseResult {
     @Column(name = "reps")
     private int reps;
     @Column(name = "time_in_seconds")
-    private int timeInSeconds;
+    private Integer timeInSeconds;
     @Column(name = "day_of_training")
     private Date dayOfTraining;
 
