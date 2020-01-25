@@ -1,8 +1,9 @@
 package com.example.coach.configuration;
 
+import com.example.coach.utils.WorkoutCalculator;
+import com.example.coach.utils.WorkoutCalculatorImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -12,6 +13,4 @@ public class SpringConfig {
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
-
-
 }

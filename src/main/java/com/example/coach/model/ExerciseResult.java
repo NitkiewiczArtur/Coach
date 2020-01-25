@@ -11,10 +11,10 @@ public class ExerciseResult {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "workout_id")
-    private Workout workouts;
+    private Workout workout;
     @ManyToOne
     @JoinColumn(name = "exercise_id")
-    private Exercise exercises;
+    private Exercise exercise;
     @Column(name = "load")
     private double load;
     @Column(name = "reps")
@@ -29,20 +29,20 @@ public class ExerciseResult {
     }
 
 
-    public Workout getWorkouts() {
-        return workouts;
+    public Workout getWorkout() {
+        return workout;
     }
 
-    public void setWorkouts(Workout workouts) {
-        this.workouts = workouts;
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
 
-    public Exercise getExercises() {
-        return exercises;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setExercises(Exercise exercises) {
-        this.exercises = exercises;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 
     public double getLoad() {

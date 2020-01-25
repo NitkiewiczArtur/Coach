@@ -17,8 +17,9 @@ public class Workout {
     )
     private List<Exercise> exercises;
 
-    @OneToMany(mappedBy = "workouts")
-    private List<Exercise> exerciseResults;
+    @OneToMany(mappedBy = "workout")
+    private List<ExerciseResult> exerciseResults;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -45,11 +46,11 @@ public class Workout {
         this.exercises = exercises;
     }
 
-    public List<Exercise> getExerciseResults() {
+    public List<ExerciseResult> getExerciseResults() {
         return exerciseResults;
     }
 
-    public void setExerciseResults(List<Exercise> exerciseResults) {
+    public void setExerciseResults(List<ExerciseResult> exerciseResults) {
         this.exerciseResults = exerciseResults;
     }
 

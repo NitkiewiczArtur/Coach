@@ -119,27 +119,27 @@ VALUES ( 1, 4, 20, 5, null, TO_DATE('02/01/2020', 'dd/mm/yyyy'))
 /////
 
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 1, 70, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 1, 75, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 1, 70, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 1, 75, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 1, 70, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 1, 75, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 1, 70, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 1, 75, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 1, 70, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 1, 75, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 
 
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 2, 50, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 2, 55, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 2, 50, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 2, 55, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 2, 50, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 2, 55, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 2, 50, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 2, 55, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 2, 50, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 2, 55, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
 VALUES ( 1, 3, 0, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
@@ -153,12 +153,12 @@ INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_second
 VALUES ( 1, 3, 0, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 4, 20, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 4, 30, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 4, 20, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 4, 30, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 4, 20, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 4, 30, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 4, 20, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 4, 30, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
 INSERT INTO exercise_result (workout_id, exercise_id, load, reps, time_in_seconds, day_of_training)
-VALUES ( 1, 4, 20, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));
+VALUES ( 1, 4, 30, 5, null, TO_DATE('06/01/2020', 'dd/mm/yyyy'));

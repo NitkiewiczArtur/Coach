@@ -19,8 +19,11 @@
     <tbody>
     <tr>-->
         <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToInsert}" method="post">
+        Load:
         <input type="text" id="load" name="load" th:field="*{load}">
+        Reps:
         <input type="text" id="reps" name="reps" th:field="*{reps}">
+        Time:
         <input type="text" id="timeInSeconds" name="timeInSeconds" th:field="*{timeInSeconds}">
 
         <input type="submit" value="Submit" />

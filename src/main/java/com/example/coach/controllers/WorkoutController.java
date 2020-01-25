@@ -3,24 +3,24 @@ package com.example.coach.controllers;
 import com.example.coach.DTO.WorkoutCreationDto;
 import com.example.coach.model.Exercise;
 import com.example.coach.model.ExerciseResult;
-import com.example.coach.model.User;
 import com.example.coach.model.Workout;
 import com.example.coach.service.ExerciseResultService;
 import com.example.coach.service.UserService;
 import com.example.coach.service.WorkoutService;
+import com.example.coach.utils.WorkoutCalculator;
+import com.example.coach.utils.WorkoutCalculatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WorkoutController {
@@ -30,10 +30,17 @@ public class WorkoutController {
     UserService userService;
     @Autowired
     ExerciseResultService exerciseResultService;
+    @Autowired
+    WorkoutCalculatorImpl workoutCalculatorImpl;
+
+
 
     @GetMapping("/addWorkoutResult")
-    public String getMainView(Model model){
-        model.addAttribute("exerciseResultToInsert", new ExerciseResult());
+    public String getMainView(Model model, @RequestParam String workoutId){
+        ExerciseResult exerciseResultToInsert = new ExerciseResult();
+        exerciseResultToInsert.setWorkout(workoutService.getWorkoutById(Long.parseLong(workoutId)));
+        model.addAttribute("exerciseResultToInsert", exerciseResultToInsert);
+
         return "addWorkoutResult";
     }
     @PostMapping("/addWorkoutResult")
@@ -46,7 +53,11 @@ public class WorkoutController {
         Workout workoutToShow = workoutService.getWorkoutById(Long.parseLong(workoutId));
         model.addAttribute("workoutToShow", workoutToShow);
 
-        List<ExerciseResult> exerciseResultList = exerciseResultService.getAllExerciseResultsByWorkoutId(Long.parseLong(workoutId));
+        Map<Date, Double> workoutResultsVMap = workoutCalculatorImpl.getWorkoutVMap(workoutToShow.getUser().getId());
+        model.addAttribute("workoutResultsVMap", workoutResultsVMap);
+
+        List<Date> exerciseResultList = exerciseResultService.getExResDatesForUserId(workoutToShow.getUser().getId());
+                /*.getAllExerciseResultsByWorkoutId(Long.parseLong(workoutId));*/
         model.addAttribute("exerciseResultList", exerciseResultList);
 
         return "showWorkoutResults";
@@ -61,15 +72,8 @@ public class WorkoutController {
         return "addWorkout";
     }
     @PostMapping("/addWorkout")
-    public String saveWorkout(Model model,@ModelAttribute WorkoutCreationDto form){
-
-
-        Workout newWorkout = new Workout();
-
-        newWorkout.setName("nowyW");
-
-        newWorkout.setExercises(form.getExercises());
-        workoutService.saveWorkout(newWorkout);
+    public String createWorkout(Model model, @ModelAttribute WorkoutCreationDto form){
+        workoutService.createWorkout(form);
         return "redirect:/main";
     }
 }

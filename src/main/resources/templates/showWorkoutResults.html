@@ -50,11 +50,27 @@
 
                         <tr th:each="exercise : ${exerciseResultList}">
 
-                            <td th:text="${exercise.load}"></td>
-                            <td th:text="${exercise.reps}"></td>
+                            <td th:text="${#dates.formatISO(exercise)}"></td>
 
                         </tr>
                         </tbody>
+
+                    </table>
+                    <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>V</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="result : ${workoutResultsVMap}">
+
+                        <td th:text="${#dates.formatISO(result.key)}"></td>
+                        <td th:text="${result.value}"></td>
+                    </tr>
+                    </tbody>
                     </table>
 
                 </div>

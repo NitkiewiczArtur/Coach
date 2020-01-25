@@ -13,7 +13,7 @@ public class Exercise {
     private String name;
     @ManyToMany(mappedBy = "exercises")
     private List<Workout> workouts;
-    @OneToMany(mappedBy = "exercises")
+    @OneToMany(mappedBy = "exercise")
     private List<ExerciseResult> exerciseResults;
 
     public Long getId() {

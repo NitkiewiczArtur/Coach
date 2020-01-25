@@ -1,5 +1,6 @@
 package com.example.coach.service;
 
+import com.example.coach.DTO.WorkoutCreationDto;
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
 import com.example.coach.repository.WorkoutRepository;
@@ -32,10 +33,20 @@ public class WorkoutService {
     public List<Workout> getUsersWorkouts(Long usersId){
         return workoutRepository.getWorkoutsByUser_Id(usersId);
     }
+    public void createWorkout(WorkoutCreationDto form){
+        Workout newWorkout = new Workout();
+
+        newWorkout.setName("nowyW");
+
+        newWorkout.setExercises(form.getExercises());
+        this.saveWorkout(newWorkout);
+
+    }
 
     private User getCurrentlyloggedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return userService.getUserByLogin(currentPrincipalName);
     }
+
 }
