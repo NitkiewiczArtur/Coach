@@ -61,11 +61,11 @@ public class ExerciseResult {
         this.reps = reps;
     }
 
-    public int getTimeInSeconds() {
+    public Integer getTimeInSeconds() {
         return timeInSeconds;
     }
 
-    public void setTimeInSeconds(int timeInSeconds) {
+    public void setTimeInSeconds(Integer timeInSeconds) {
         this.timeInSeconds = timeInSeconds;
     }
 

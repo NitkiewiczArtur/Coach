@@ -10,5 +10,7 @@ import java.util.List;
 //??? adnotacja?
 
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
-    List<Workout> getWorkoutsByUsers_Id(Long usersId);
+    List<Workout> getWorkoutsByUser_Id(Long usersId);
+    Workout getWorkoutById(Long workoutId);
+
 }

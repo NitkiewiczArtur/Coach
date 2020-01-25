@@ -9,10 +9,11 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "workout_exercise",
             joinColumns = {@JoinColumn(name = "workout_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "exercise_id", referencedColumnName = "id")}
+
     )
     private List<Exercise> exercises;
 
@@ -20,7 +21,7 @@ public class Workout {
     private List<Exercise> exerciseResults;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User users;
+    private User user;
 
     public Long getId() {
         return id;
@@ -52,11 +53,11 @@ public class Workout {
         this.exerciseResults = exerciseResults;
     }
 
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User users) {
+        this.user = users;
     }
 }

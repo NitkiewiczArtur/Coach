@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Workout</title>
+</head>
+<body>
+<form action="#" th:action="@{/addWorkout}" th:object="${form}"
+      method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+        <table>
+            <thead>
+            <tr>
+                <th> Exercise</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exercise, itemStat : *{exercises}">
+                <td><input th:field="*{exercises[__${itemStat.index}__].name}" /></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
+
+</body>
+</html>

@@ -1,7 +1,10 @@
 package com.example.coach.controllers;
 
+import com.example.coach.DTO.WorkoutCreationDto;
+import com.example.coach.model.Exercise;
 import com.example.coach.model.ExerciseResult;
 import com.example.coach.model.User;
+import com.example.coach.model.Workout;
 import com.example.coach.service.ExerciseResultService;
 import com.example.coach.service.UserService;
 import com.example.coach.service.WorkoutService;
@@ -40,13 +43,33 @@ public class WorkoutController {
     }
     @GetMapping("/showWorkoutResults")
     public String showWorkoutReults(Model model, @RequestParam String workoutId){
+        Workout workoutToShow = workoutService.getWorkoutById(Long.parseLong(workoutId));
+        model.addAttribute("workoutToShow", workoutToShow);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User currentlyLoggedUser = userService.getUserByLogin(currentPrincipalName);
         List<ExerciseResult> exerciseResultList = exerciseResultService.getAllExerciseResultsByWorkoutId(Long.parseLong(workoutId));
         model.addAttribute("exerciseResultList", exerciseResultList);
+
         return "showWorkoutResults";
     }
+    @GetMapping("/addWorkout")
+    public String showCreateForm(Model model){
+        WorkoutCreationDto exercisesForm = new WorkoutCreationDto();
+        for (int i = 1 ; i <=10; i++){
+            exercisesForm.addExercise(new Exercise());
+        }
+        model.addAttribute("form", exercisesForm);
+        return "addWorkout";
+    }
+    @PostMapping("/addWorkout")
+    public String saveWorkout(Model model,@ModelAttribute WorkoutCreationDto form){
 
+
+        Workout newWorkout = new Workout();
+
+        newWorkout.setName("nowyW");
+
+        newWorkout.setExercises(form.getExercises());
+        workoutService.saveWorkout(newWorkout);
+        return "redirect:/main";
+    }
 }
