@@ -22,8 +22,9 @@ public class ExerciseResultService {
     public List<ExerciseResult> getAllExerciseResultsByWorkoutId(Long workoutId){
         return exerciseResultRepository.getAllByWorkout_Id(workoutId);
     }
-    public void addExerciseResult(ExerciseResult exRes, Long workoutId){
+    public void addExerciseResult(ExerciseResult exRes, Long workoutId, Date date){
         exRes.setWorkout(workoutRepository.getWorkoutById(workoutId));
+        exRes.setDayOfTraining(date);
         exerciseResultRepository.save(exRes);
     }
     public List<ExerciseResult> getAllByDayOfTraining(Date dayOfTraining){

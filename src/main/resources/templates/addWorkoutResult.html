@@ -30,7 +30,7 @@
 
 
                 </table>
-        <form action="#" th:action="@{/addWorkoutResult}"  th:object="${workoutResultsForm}" method="post">
+        <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToAdd}" method="post">
                 <table class="table table-striped" id="myTable">
 
 
@@ -41,12 +41,12 @@
                         <th>Time</th>
                         <th>Day of Training</th>
                 </tr>
-                <tr th:each="exerciseResult, status : *{exercisesResults}">
+                <tr>
 
-                        <td><input th:field="*{exercisesResults[__${status.index}__].load}"/></td>
-                        <td><input th:field="*{exercisesResults[__${status.index}__].reps}"/></td>
-                        <td><input th:field="*{exercisesResults[__${status.index}__].timeInSeconds}"/></td>
-                        <td><input type="date" th:field="*{exercisesResults[__${status.index}__].dayOfTraining}"/></td>
+                        <td><input th:field="*{load}"/></td>
+                        <td><input th:field="*{reps}"/></td>
+                        <td><input th:field="*{timeInSeconds}"/></td>
+                        <!--<td><input type="date" th:field="*{workoutResultToAdd.dayOfTraining}"/></td>-->
                 </tr>
                 <input type="hidden" name="workoutId" th:value="${workoutId}">
                 <input type="hidden" name="workoutDay" th:value="${workoutDay}">
