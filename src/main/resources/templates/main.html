@@ -26,6 +26,7 @@
         <td><input type="submit" value="Show"></td>
         </form>
         <form action="/addWorkoutResult" method="get">
+           <td>dd-MM-yyyy<input type="text" name="workoutDay" th:value="${workoutDay}"></td>
             <input type="hidden" name="workoutId" th:value="${workout.id}">
         <td><input type="submit" value="Add"></td>
         </form>

@@ -6,32 +6,70 @@
     <title>AddWorkoutResult</title>
 </head>
 <body>
-<!--<table>
-    <thead>
-    <tr>
-        <th>Exercise</th>
-        <th>Load</th>
-        <th>Reps</th>
-        <th>Time [s]</th>
-        <th>Day!</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>-->
-        <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToInsert}" method="post">
+<!--<ul id="dynamic-list"></ul>
+
+<input type="text" id="candidate"/>
+<button onclick="addItem()">add item</button>
+<button onclick="removeItem()">remove item</button>-->
+<div th:object="${exerciseResultList}" >
+
+        <h2>Workout Results</h2>
+                <table class="table table-striped" id="resultTable">
+                        <tr>
+
+                                <th>Load</th>
+                                <th>Reps</th>
+                                <th>Time</th>
+
+                        </tr>
+                        <tr th:each="result : ${workoutResultsForm.exercisesResults}">
+
+                                <td th:text="${result.load}"></td>
+                                <td th:text="${result.reps}"></td>
+                        </tr>
+
+
+                </table>
+        <form action="#" th:action="@{/addWorkoutResult}"  th:object="${workoutResultsForm}" method="post">
+                <table class="table table-striped" id="myTable">
+
+
+                <tr>
+
+                        <th>Load</th>
+                        <th>Reps</th>
+                        <th>Time</th>
+                        <th>Day of Training</th>
+                </tr>
+                <tr th:each="exerciseResult, status : *{exercisesResults}">
+
+                        <td><input th:field="*{exercisesResults[__${status.index}__].load}"/></td>
+                        <td><input th:field="*{exercisesResults[__${status.index}__].reps}"/></td>
+                        <td><input th:field="*{exercisesResults[__${status.index}__].timeInSeconds}"/></td>
+                        <td><input type="date" th:field="*{exercisesResults[__${status.index}__].dayOfTraining}"/></td>
+                </tr>
+                <input type="hidden" name="workoutId" th:value="${workoutId}">
+                <input type="hidden" name="workoutDay" th:value="${workoutDay}">
+                <input type="submit" value="Submit" />
+
+        </table>
+        </form>
+</div>
+
+
+       <!-- <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToInsert}" method="post">
         Load:
         <input type="text" id="load" name="load" th:field="*{load}">
         Reps:
         <input type="text" id="reps" name="reps" th:field="*{reps}">
         Time:
         <input type="text" id="timeInSeconds" name="timeInSeconds" th:field="*{timeInSeconds}">
-
+        Day:
+        <input type="date" id="dayOfTraining" name="dayOfTraining" th:field="*{dayOfTraining}">
+        <input type="hidden" name="workoutId" th:value="${workoutId}">
         <input type="submit" value="Submit" />
-        </form>
- <!--   </tr>
+        </form>-->
 
-    </tbody>
-</table>
--->
 </body>
 </html>
+

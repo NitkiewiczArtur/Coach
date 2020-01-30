@@ -1,7 +1,11 @@
 package com.example.coach.service;
 
+import com.example.coach.DTO.WorkoutCreationDto;
+import com.example.coach.DTO.WorkoutResultDTO;
 import com.example.coach.model.ExerciseResult;
+import com.example.coach.model.Workout;
 import com.example.coach.repository.ExerciseResultRepository;
+import com.example.coach.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +16,14 @@ import java.util.List;
 public class ExerciseResultService {
     @Autowired
     ExerciseResultRepository exerciseResultRepository;
+    @Autowired
+    WorkoutRepository workoutRepository;
 
     public List<ExerciseResult> getAllExerciseResultsByWorkoutId(Long workoutId){
         return exerciseResultRepository.getAllByWorkout_Id(workoutId);
     }
-    public void addExerciseResult(ExerciseResult exRes){
+    public void addExerciseResult(ExerciseResult exRes, Long workoutId){
+        exRes.setWorkout(workoutRepository.getWorkoutById(workoutId));
         exerciseResultRepository.save(exRes);
     }
     public List<ExerciseResult> getAllByDayOfTraining(Date dayOfTraining){
@@ -24,5 +31,12 @@ public class ExerciseResultService {
     }
     public List<Date> getExResDatesForUserId(Long userId){
         return exerciseResultRepository.getDatesByUserId(userId, Date.class);
+    }
+    public void addWorkoutResult(WorkoutResultDTO form, Long workoutId, Date workoutDay){
+
+        for(ExerciseResult exRes : form.getExercisesResults()){
+            exRes.setWorkout(workoutRepository.getWorkoutById(workoutId));
+            exerciseResultRepository.save(exRes);
+        }
     }
 }
