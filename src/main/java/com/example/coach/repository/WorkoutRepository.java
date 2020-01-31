@@ -1,5 +1,6 @@
 package com.example.coach.repository;
 
+import com.example.coach.model.Exercise;
 import com.example.coach.model.Workout;
 import org.hibernate.jdbc.Work;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,6 @@ import java.util.List;
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     List<Workout> getWorkoutsByUser_Id(Long usersId);
     Workout getWorkoutById(Long workoutId);
+    Exercise getExercisesByWorkoutId(Long workoutId);
 
 }

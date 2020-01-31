@@ -45,8 +45,7 @@ public class WorkoutController {
 
         model.addAttribute("workoutResultsForm", workoutResultsForm);
         model.addAttribute("workoutDay",workoutDay);
-      //  ExerciseResult exerciseResultToInsert = new ExerciseResult();
-       // model.addAttribute("exerciseResultToInsert", exerciseResultToInsert);
+
         model.addAttribute("workoutId", workoutId);
         model.addAttribute("exerciseResultToAdd", new ExerciseResult());
         return "addWorkoutResult";

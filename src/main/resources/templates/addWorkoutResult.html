@@ -17,13 +17,13 @@
                 <table class="table table-striped" id="resultTable">
                         <tr>
 
-                                <th>Load</th>
+                                <th>Ex. name</th>
+                                <th>Load[kg]</th>
                                 <th>Reps</th>
-                                <th>Time</th>
 
                         </tr>
                         <tr th:each="result : ${workoutResultsForm.exercisesResults}">
-
+                                <td th:text="${result.exercise.name}"></td>
                                 <td th:text="${result.load}"></td>
                                 <td th:text="${result.reps}"></td>
                         </tr>
@@ -39,14 +39,14 @@
                         <th>Load</th>
                         <th>Reps</th>
                         <th>Time</th>
-                        <th>Day of Training</th>
+
                 </tr>
                 <tr>
 
                         <td><input th:field="*{load}"/></td>
                         <td><input th:field="*{reps}"/></td>
                         <td><input th:field="*{timeInSeconds}"/></td>
-                        <!--<td><input type="date" th:field="*{workoutResultToAdd.dayOfTraining}"/></td>-->
+
                 </tr>
                 <input type="hidden" name="workoutId" th:value="${workoutId}">
                 <input type="hidden" name="workoutDay" th:value="${workoutDay}">
