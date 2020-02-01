@@ -23,9 +23,9 @@ public class UsersController {
     }
 
     @GetMapping(value = "/adduser")
-    public ModelAndView getAddUserView(){
+    public String getAddUserView(){
 
-        return null;
+        return "adduser";
     }
     @PostMapping(value = "/adduser")
     public String addUser(@ModelAttribute User user){

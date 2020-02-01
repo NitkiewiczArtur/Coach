@@ -5,6 +5,7 @@ import com.example.coach.DTO.WorkoutResultDTO;
 import com.example.coach.model.Exercise;
 import com.example.coach.model.ExerciseResult;
 import com.example.coach.model.Workout;
+import com.example.coach.repository.ExerciseRepository;
 import com.example.coach.service.ExerciseResultService;
 import com.example.coach.service.UserService;
 import com.example.coach.service.WorkoutService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -37,15 +39,15 @@ public class WorkoutController {
     public String showAddWorkoutResultPanel (@RequestParam("workoutId") Long workoutId, Model model, @ModelAttribute WorkoutResultDTO workoutResultsForm, @RequestParam("workoutDay") String workoutDay) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date date = formatter.parse(workoutDay);
-
+        List<Exercise> exerciseList = workoutService.getExerciseListByWorkoutId(workoutId);
         workoutResultsForm = new WorkoutResultDTO();
-        workoutResultsForm.setExercisesResults(exerciseResultService.getAllByDayOfTraining(date));
         if(workoutResultsForm.getExercisesResults().size() == 0)
-        workoutResultsForm.addExerciseResult(new ExerciseResult(), null);
+            workoutResultsForm.addExerciseResult(new ExerciseResult(), null);
+        workoutResultsForm.setExercisesResults(exerciseResultService.getAllByDayOfTrainingAndWorkoutId(date, workoutId));
 
         model.addAttribute("workoutResultsForm", workoutResultsForm);
         model.addAttribute("workoutDay",workoutDay);
-
+        model.addAttribute("exerciseList", exerciseList);
         model.addAttribute("workoutId", workoutId);
         model.addAttribute("exerciseResultToAdd", new ExerciseResult());
         return "addWorkoutResult";
@@ -84,7 +86,7 @@ public class WorkoutController {
         Workout workoutToShow = workoutService.getWorkoutById(Long.parseLong(workoutId));
         model.addAttribute("workoutToShow", workoutToShow);
 
-        Map<Date, Double> workoutResultsVMap = workoutCalculatorImpl.getWorkoutVMap(workoutToShow.getUser().getId());
+        Map<Date, Double> workoutResultsVMap = workoutCalculatorImpl.getWorkoutVMap(workoutToShow.getUser().getId(), Long.parseLong(workoutId));
         model.addAttribute("workoutResultsVMap", workoutResultsVMap);
 
 

@@ -27,8 +27,8 @@ public class ExerciseResultService {
         exRes.setDayOfTraining(date);
         exerciseResultRepository.save(exRes);
     }
-    public List<ExerciseResult> getAllByDayOfTraining(Date dayOfTraining){
-        return exerciseResultRepository.getAllByDayOfTraining(dayOfTraining);
+    public List<ExerciseResult> getAllByDayOfTrainingAndWorkoutId(Date dayOfTraining, Long workoutId){
+        return exerciseResultRepository.getAllByDayOfTrainingAndWorkoutId(dayOfTraining, workoutId);
     }
     public List<Date> getExResDatesForUserId(Long userId){
         return exerciseResultRepository.getDatesByUserId(userId, Date.class);

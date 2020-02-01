@@ -1,8 +1,10 @@
 package com.example.coach.service;
 
 import com.example.coach.DTO.WorkoutCreationDto;
+import com.example.coach.model.Exercise;
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
+import com.example.coach.repository.ExerciseRepository;
 import com.example.coach.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,11 +18,12 @@ public class WorkoutService {
 
     private WorkoutRepository workoutRepository;
     private UserService userService;
-
+    private ExerciseRepository exerciseRepository;
     @Autowired
-    public WorkoutService(WorkoutRepository workoutRepository, UserService userService){
+    public WorkoutService(WorkoutRepository workoutRepository, UserService userService, ExerciseRepository exerciseRepository){
         this.userService = userService;
         this.workoutRepository = workoutRepository;
+        this.exerciseRepository = exerciseRepository;
     }
 
     public Workout getWorkoutById(Long workoutId){
@@ -47,6 +50,9 @@ public class WorkoutService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return userService.getUserByLogin(currentPrincipalName);
+    }
+    public List<Exercise> getExerciseListByWorkoutId(Long workoutId){
+       return  exerciseRepository.findAllByWorkouts(workoutRepository.getWorkoutById(workoutId));
     }
 
 }

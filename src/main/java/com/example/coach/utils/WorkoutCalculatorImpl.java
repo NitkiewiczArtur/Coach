@@ -20,19 +20,19 @@ public class WorkoutCalculatorImpl implements WorkoutCalculator{
     }
     public WorkoutCalculatorImpl(){ }
 
-    public Double countTrainingVforSpecificDay(Date day){
-        List<ExerciseResult> exerciseResults = exerciseResultService.getAllByDayOfTraining(day);
+    public Double countTrainingVforSpecificDay(Date day, Long workoutId){
+        List<ExerciseResult> exerciseResults = exerciseResultService.getAllByDayOfTrainingAndWorkoutId(day, workoutId);
         Double tempV=0.0;
         for ( ExerciseResult result : exerciseResults) {
             tempV += (result.getReps()* result.getLoad());
         }
         return tempV;
     }
-    public Map<Date, Double> getWorkoutVMap(Long userId){
+    public Map<Date, Double> getWorkoutVMap(Long userId, Long workoutId){
         List<Date> daysOfTrainings = exerciseResultService.getExResDatesForUserId(userId);
         Map<Date, Double> resultMap = new HashMap<>();
         for(Date day : daysOfTrainings){
-            resultMap.put(day,countTrainingVforSpecificDay(day));
+            resultMap.put(day,countTrainingVforSpecificDay(day, workoutId));
         }
         return resultMap;
     }

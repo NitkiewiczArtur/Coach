@@ -6,12 +6,8 @@
     <title>AddWorkoutResult</title>
 </head>
 <body>
-<!--<ul id="dynamic-list"></ul>
 
-<input type="text" id="candidate"/>
-<button onclick="addItem()">add item</button>
-<button onclick="removeItem()">remove item</button>-->
-<div th:object="${exerciseResultList}" >
+<div >
 
         <h2>Workout Results</h2>
                 <table class="table table-striped" id="resultTable">
@@ -36,13 +32,17 @@
 
                 <tr>
 
+                        <th>Exercise</th>
                         <th>Load</th>
                         <th>Reps</th>
                         <th>Time</th>
-
                 </tr>
                 <tr>
-
+                        <td>
+                                <select th:field="*{exercise}">
+                                        <option th:each="exercise : ${exerciseList}" th:value="${exercise.id}" th:text="${exercise.name}"></option>
+                                </select>
+                        </td>
                         <td><input th:field="*{load}"/></td>
                         <td><input th:field="*{reps}"/></td>
                         <td><input th:field="*{timeInSeconds}"/></td>
