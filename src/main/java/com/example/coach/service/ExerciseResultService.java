@@ -1,9 +1,7 @@
 package com.example.coach.service;
 
-import com.example.coach.DTO.WorkoutCreationDto;
 import com.example.coach.DTO.WorkoutResultDTO;
 import com.example.coach.model.ExerciseResult;
-import com.example.coach.model.Workout;
 import com.example.coach.repository.ExerciseResultRepository;
 import com.example.coach.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,28 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Workout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<form action="#" th:action="@{/addWorkout}" th:object="${form}"
+<nav class="navbar navbar-expand-sm bg-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link 2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link 3</a>
+        </li>
+    </ul>
+
+</nav>
+
+<h2>Workout</h2>
+<table class="table table-striped" id="resultTable">
+    <tr>
+
+        <th>Ex. name</th>
+
+    </tr>
+    <tr th:each="ex : ${exercisesForm.exercises}">
+        <td th:text="${ex.name}"></td>
+    </tr>
+
+
+</table>
+<form action="#" th:action="@{/addWorkout/addExercise}" th:object="${exerciseToAdd}"
       method="post">
-    <fieldset>
-        <input type="submit" id="submitButton" th:value="Save">
-        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
-        <table>
-            <thead>
-            <tr>
-                <th> Exercise</th>
+        <input type="submit" th:value="submit">
+                 <input th:field="*{name}" type="text"  />
+             <input type="hidden" name="newWorkoutIdEEE"  th:value="${newWorkoutIdEEE}"/>
+            <input type="hidden" name="workoutName" th:value="${workoutName}">
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="exercise, itemStat : *{exercises}">
-                <td><input th:field="*{exercises[__${itemStat.index}__].name}" /></td>
-
-            </tr>
-            </tbody>
-        </table>
-    </fieldset>
 </form>
 
 </body>

@@ -14,5 +14,4 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     List<Workout> getWorkoutsByUser_Id(Long usersId);
     Workout getWorkoutById(Long workoutId);
 
-
 }

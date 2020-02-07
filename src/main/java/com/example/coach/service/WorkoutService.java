@@ -1,6 +1,6 @@
 package com.example.coach.service;
 
-import com.example.coach.DTO.WorkoutCreationDto;
+import com.example.coach.DTO.WorkoutDto;
 import com.example.coach.model.Exercise;
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,21 +30,26 @@ public class WorkoutService {
     public Workout getWorkoutById(Long workoutId){
         return workoutRepository.getWorkoutById(workoutId);
     }
-    public void saveWorkout(Workout workout){
+    public Long saveWorkoutAndReturnId(Workout workout){
         workout.setUser(getCurrentlyloggedUser());
-        workoutRepository.save(workout);
+        return workoutRepository.save(workout).getId();
     }
     public List<Workout> getUsersWorkouts(Long usersId){
         return workoutRepository.getWorkoutsByUser_Id(usersId);
     }
-    public void createWorkout(WorkoutCreationDto form){
+    public void createWorkoutAndReturnId(WorkoutDto form){
         Workout newWorkout = new Workout();
 
         newWorkout.setName("nowyW");
 
         newWorkout.setExercises(form.getExercises());
-        this.saveWorkout(newWorkout);
+        this.saveWorkoutAndReturnId(newWorkout);
 
+    }
+    public Long createWorkoutAndReturnId(String workoutName){
+        Workout newWorkout = new Workout();
+        newWorkout.setName(workoutName);
+        return this.saveWorkoutAndReturnId(newWorkout);
     }
 
     private User getCurrentlyloggedUser(){
@@ -54,5 +60,14 @@ public class WorkoutService {
     public List<Exercise> getExerciseListByWorkoutId(Long workoutId){
        return  exerciseRepository.findAllByWorkouts(workoutRepository.getWorkoutById(workoutId));
     }
+    public void addExercise(Exercise exercise, Long workoutId){
+        Workout workoutToInsertExerciseInto = workoutRepository.getWorkoutById(workoutId);
+        List<Workout> workouts = new ArrayList<>();
+        workouts.add(workoutToInsertExerciseInto);
+        exercise.setWorkouts(workouts);
+        exerciseRepository.save(exercise);
+
+    }
+
 
 }

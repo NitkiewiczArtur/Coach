@@ -2,74 +2,113 @@
 <html lang="en">
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>AddWorkoutResult</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<main class="container" style="padding-top: 0.5rem">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/main">Coach</a>
+        <div style="float: left">
+            <h2>Workout Results</h2>
+        </div>
 
-<div >
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Pricing</a>
+                </li>
+            </ul>
+            <span class="navbar-text" style="float: left">
 
-        <h2>Workout Results</h2>
-                <table class="table table-striped" id="resultTable">
-                        <tr>
+                <a th:text=${currentlyLoggedUser.login}></a>
+                    <a th:text=${currentlyLoggedUser.name}></a>
 
-                                <th>Ex. name</th>
-                                <th>Load[kg]</th>
-                                <th>Reps</th>
-
-                        </tr>
-                        <tr th:each="result : ${workoutResultsForm.exercisesResults}">
-                                <td th:text="${result.exercise.name}"></td>
-                                <td th:text="${result.load}"></td>
-                                <td th:text="${result.reps}"></td>
-                        </tr>
+    </span>
+        </div>
+    </nav>
 
 
-                </table>
-        <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToAdd}" method="post">
-                <table class="table table-striped" id="myTable">
+    <table class="table " id="resultTable">
+        <tr style="background-color: #2962ff ">
+            <th>Exercise</th>
+            <th>Load[kg]</th>
+            <th>Reps</th>
+        </tr>
+        <tr class="bg-light table-hover" th:each="result : ${workoutResultsForm.exercisesResults}">
+            <td th:text="${result.exercise.name}"></td>
+            <td th:text="${result.load}"></td>
+            <td th:text="${result.reps}"></td>
+        </tr>
+    </table>
 
 
-                <tr>
 
-                        <th>Exercise</th>
-                        <th>Load</th>
-                        <th>Reps</th>
-                        <th>Time</th>
-                </tr>
-                <tr>
-                        <td>
-                                <select th:field="*{exercise}">
-                                        <option th:each="exercise : ${exerciseList}" th:value="${exercise.id}" th:text="${exercise.name}"></option>
-                                </select>
-                        </td>
-                        <td><input th:field="*{load}"/></td>
-                        <td><input th:field="*{reps}"/></td>
-                        <td><input th:field="*{timeInSeconds}"/></td>
+</main>
+<div style="padding-bottom: 150px">
 
-                </tr>
-                <input type="hidden" name="workoutId" th:value="${workoutId}">
-                <input type="hidden" name="workoutDay" th:value="${workoutDay}">
-                <input type="submit" value="Submit" />
-
-        </table>
-        </form>
 </div>
 
+</footer>
+<footer class="footer fixed-bottom ">
+  <div class="container ">
+    <form
+            action="#"
+            th:action="@{/addWorkoutResult}"
+            th:object="${exerciseResultToAdd}"
+            method="post"
+    >
 
-       <!-- <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToInsert}" method="post">
-        Load:
-        <input type="text" id="load" name="load" th:field="*{load}">
-        Reps:
-        <input type="text" id="reps" name="reps" th:field="*{reps}">
-        Time:
-        <input type="text" id="timeInSeconds" name="timeInSeconds" th:field="*{timeInSeconds}">
-        Day:
-        <input type="date" id="dayOfTraining" name="dayOfTraining" th:field="*{dayOfTraining}">
-        <input type="hidden" name="workoutId" th:value="${workoutId}">
-        <input type="submit" value="Submit" />
-        </form>-->
+        <table class="table" style="background-color: #2962ff " id="myTable">
+            <tr>
+                <th>Exercise</th>
+                <th>Load</th>
+                <th>Reps</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                <td>
+                    <select th:field="*{exercise}">
+                        <option
+                                th:each="exercise : ${exerciseList}"
+                                th:value="${exercise.id}"
+                                th:text="${exercise.name}"
+                        ></option>
+                    </select>
+                </td>
+                <td><input th:field="*{load}"/></td>
+                <td><input th:field="*{reps}"/></td>
+                <td><input th:field="*{timeInSeconds}"/></td>
+            </tr>
+            <input type="hidden" name="workoutId" th:value="${workoutId}"/>
+            <input type="hidden" name="workoutDay" th:value="${workoutDay}"/>
+        </table>
 
+        <input type="submit" value="Submit"/>
+    </form>
+  </div>
+</footer>
+
+<!-- <form action="#" th:action="@{/addWorkoutResult}"  th:object="${exerciseResultToInsert}" method="post">
+Load:
+<input type="text" id="load" name="load" th:field="*{load}">
+Reps:
+<input type="text" id="reps" name="reps" th:field="*{reps}">
+Time:
+<input type="text" id="timeInSeconds" name="timeInSeconds" th:field="*{timeInSeconds}">
+Day:
+<input type="date" id="dayOfTraining" name="dayOfTraining" th:field="*{dayOfTraining}">
+<input type="hidden" name="workoutId" th:value="${workoutId}">
+<input type="submit" value="Submit" />
+</form>-->
 </body>
 </html>
-
+</html>

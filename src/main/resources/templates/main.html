@@ -3,35 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
-<p>User:</p>
-<p th:text=${currentlyLoggedUser.login}></p>
-<p>Users name</p>
-<p th:text="${currentlyLoggedUser.name}"></p>
-<table>
-    <thead>
-    <tr>
-        <th>Workout</th>
-        <th>Show progress</th>
-        <th>Add workout result</th>
-    </tr>
-    </thead>
-    <tbody>
+<main class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/main">Coach</a>
+        <div style="float: left">
+            <h2>Workout Results</h2>
+        </div>
 
-    <tr th:each="workout : ${workoutList}">
-        <td th:text="${workout.name}"></td>
-        <form action="/showWorkoutResults" method="get">
-            <input type="hidden" name="workoutId" th:value="${workout.id}">
-        <td><input type="submit" value="Show"></td>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Pricing</a>
+                </li>
+            </ul>
+            <span class="navbar-text" style="float: left">
+
+                <a th:text=${currentlyLoggedUser.login}></a>
+                    <a th:text=${currentlyLoggedUser.name}></a>
+
+    </span>
+        </div>
+    </nav>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Workout</th>
+            <th>Show progress</th>
+            <th>Add workout result</th>
+        </tr>
+        </thead>
+        <tbody>
+        <div class="nav justify-content-end">
+        <form action="/addWorkout" method="get">
+            <h>New workout name:</h>
+            <input type="text" name="workoutName" th:value="${workoutName}">
+
+            <input type="submit" class="button btn-outline-success" value="+">
         </form>
-        <form action="/addWorkoutResult" method="get">
-           <td>dd-MM-yyyy<input type="text" name="workoutDay" th:value="${workoutDay}"></td>
-            <input type="hidden" name="workoutId" th:value="${workout.id}">
-        <td><input type="submit" value="Add"></td>
-        </form>
-    </tr>
-    </tbody>
-</table>
+        </div>
+        <tr th:each="workout : ${workoutList}">
+            <td th:text="${workout.name}"></td>
+            <form action="/showWorkoutResults" method="get">
+                <input type="hidden" name="workoutId" th:value="${workout.id}">
+                <td><input type="submit" value="Show"></td>
+            </form>
+            <form action="/addWorkoutResult" method="get">
+                <td>dd-MM-yyyy<input type="text" name="workoutDay" th:value="${workoutDay}"></td>
+                <input type="hidden" name="workoutId" th:value="${workout.id}">
+                <td><input type="submit" value="Add"></td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</main>
 </body>
 </html>
