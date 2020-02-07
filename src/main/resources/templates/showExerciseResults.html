@@ -39,20 +39,27 @@
     </span>
         </div>
     </nav>
-    <h1 th:text="${workoutToShow.name}"></h1>
+    <h1 th:text="${exerciseToShow.name}"></h1>
     <table class="table table-hover" id="resultTable">
 
         <tr class="bg-light table-hover" th:each="exercise : ${workoutToShow.exercises}">
-           <form action="/showExerciseResults" method="get">
-               <td th:text="${exercise.name}"></td>
-               <input type="hidden" name="exerciseId" th:value="${exercise.id}">
-               <input type="hidden" name="workoutId" th:value="${workoutToShow.id}">
-               <td>
-                   <input type="submit" value="Show Graph">
-               </td>
-           </form>
-
+            <form action="/showExerciseResults" method="get">
+                <td th:text="${exercise.name}"></td>
+                <input type="hidden" name="exerciseId" th:value="${exercise.id}">
+                <input type="hidden" name="workoutId" th:value="${workoutToShow.id}">
+                <td>
+                <input type="submit" value="Show Graph">
+                </td>
+            </form>
         </tr>
+            <form action="/showWorkoutResults" method="get">
+
+                <input type="hidden" name="workoutId" th:value="${workoutToShow.id}">
+
+                    <input type="submit" value="Show Workout Graph">
+            </form>
+
+
     </table>
     <div class="container">
         <h2 align="center" th:text="${workoutToShow.name}"></h2>

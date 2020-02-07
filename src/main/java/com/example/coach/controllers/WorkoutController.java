@@ -6,6 +6,7 @@ import com.example.coach.model.Exercise;
 import com.example.coach.model.ExerciseResult;
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
+import com.example.coach.repository.ExerciseRepository;
 import com.example.coach.service.ExerciseResultService;
 import com.example.coach.service.UserService;
 import com.example.coach.service.WorkoutService;
@@ -34,7 +35,8 @@ public class WorkoutController {
     ExerciseResultService exerciseResultService;
     @Autowired
     WorkoutCalculatorImpl workoutCalculatorImpl;
-
+    @Autowired
+    ExerciseRepository exerciseRepository;
 
 
     @GetMapping("/addWorkoutResult")
@@ -75,7 +77,7 @@ public class WorkoutController {
 
             newWorkoutId = workoutService.createWorkoutAndReturnId(workoutName);
            // exercisesForm.setId(newWorkoutId);
-            exercise.setWorkoutId(newWorkoutId);
+          //  exercise.setWorkoutId(newWorkoutId);
             model.addAttribute("newWorkoutIdEEE", Long.toString(newWorkoutId));
 
 
@@ -110,11 +112,24 @@ public class WorkoutController {
 
         Workout workoutToShow = workoutService.getWorkoutById(Long.parseLong(workoutId));
         model.addAttribute("workoutToShow", workoutToShow);
-
         Map<Date, Double> workoutResultsVMap = workoutCalculatorImpl.getWorkoutVMap(workoutToShow.getUser().getId(), Long.parseLong(workoutId));
-        model.addAttribute("workoutResultsVMap", workoutResultsVMap);
+        model.addAttribute("surveyMap", workoutResultsVMap);
+        //model.addAttribute("workoutResultsVMap", workoutResultsVMap);
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
 
         return "showWorkoutResults";
+    }
+    @GetMapping("/showExerciseResults")
+    public String showExerciseResults(Model model, @RequestParam Long workoutId, @RequestParam Long exerciseId){
+        Exercise exerciseToShow = exerciseRepository.getOne(exerciseId);
+        Workout workoutToShow = workoutService.getWorkoutById(workoutId);
+        model.addAttribute("workoutToShow", workoutToShow);
+
+        Map<Date, Double> exerciseResultsVMap = workoutCalculatorImpl.getExerciseVMap(workoutToShow.getUser().getId(), workoutId, exerciseId);
+        model.addAttribute("surveyMap", exerciseResultsVMap);
+        model.addAttribute("exerciseToShow", exerciseToShow);
+        model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
+
+        return "showExerciseResults";
     }
 }

@@ -28,6 +28,9 @@ public class ExerciseResultService {
     public List<ExerciseResult> getAllByDayOfTrainingAndWorkoutId(Date dayOfTraining, Long workoutId){
         return exerciseResultRepository.getAllByDayOfTrainingAndWorkoutId(dayOfTraining, workoutId);
     }
+    public List<ExerciseResult> getAllByDayOfTrainingAndWorkoutIdAndExerciseId(Date dayOfTraining, Long workoutId, Long exerciseId){
+        return exerciseResultRepository.getAllByDayOfTrainingAndWorkoutIdAndExerciseId(dayOfTraining, workoutId, exerciseId);
+    }
     public List<Date> getExResDatesForUserId(Long userId){
         return exerciseResultRepository.getDatesByUserId(userId, Date.class);
     }

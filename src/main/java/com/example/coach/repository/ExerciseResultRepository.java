@@ -12,6 +12,7 @@ public interface ExerciseResultRepository extends JpaRepository<ExerciseResult, 
     List<ExerciseResult> getAllByWorkout_Id(Long workoutId);
 
     List<ExerciseResult> getAllByDayOfTrainingAndWorkoutId(Date dayOfTraining, Long workoutId);
+    List<ExerciseResult> getAllByDayOfTrainingAndWorkoutIdAndExerciseId(Date dayOfTraining, Long workoutId, Long exerciseId);
 
     @Query("select distinct exr.dayOfTraining " +
             "from com.example.coach.model.ExerciseResult exr " +

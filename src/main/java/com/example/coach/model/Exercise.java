@@ -16,6 +16,7 @@ public class Exercise {
     @OneToMany(mappedBy = "exercise")
     private List<ExerciseResult> exerciseResults;
 
+/*
     @Transient
     private Long workoutId;
 
@@ -26,6 +27,7 @@ public class Exercise {
     public void setWorkoutId(Long workoutId) {
         this.workoutId = workoutId;
     }
+*/
 
     public Long getId() {
         return id;
