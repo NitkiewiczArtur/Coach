@@ -40,7 +40,7 @@ public class WorkoutController {
 
 
     @GetMapping("/addWorkoutResult")
-    public String showAddWorkoutResultPanel (@RequestParam("workoutId") Long workoutId, Model model, @RequestParam("workoutDay") String workoutDay) throws ParseException {
+    public String showAddWorkoutResultPanel(@RequestParam("workoutId") Long workoutId, Model model, @RequestParam("workoutDay") String workoutDay) throws ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date date = formatter.parse(workoutDay);
@@ -52,48 +52,65 @@ public class WorkoutController {
 
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
         model.addAttribute("workoutResultsForm", workoutResultsForm);
-        model.addAttribute("workoutDay",workoutDay);
+        model.addAttribute("workoutDay", workoutDay);
         model.addAttribute("exerciseList", exerciseList);
         model.addAttribute("workoutId", workoutId);
         model.addAttribute("exerciseResultToAdd", new ExerciseResult());
         return "addWorkoutResult";
     }
+
     @PostMapping("/addWorkoutResult")
     public String addWorkoutResult(@RequestParam("workoutId") Long workoutId, Model model, @ModelAttribute("exerciseResultToAdd") ExerciseResult exerciseResultToAdd,
-                                   @ModelAttribute WorkoutResultDTO workoutResultsForm, @RequestParam("workoutDay") String workoutDay) throws ParseException {
+                                    @RequestParam("workoutDay") String workoutDay) throws ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date date = formatter.parse(workoutDay);
 
         exerciseResultService.addExerciseResult(exerciseResultToAdd, workoutId, date);
 
-        return "redirect:/addWorkoutResult?workoutId="+workoutId+"&workoutDay="+workoutDay;
+        return "redirect:/addWorkoutResult?workoutId=" + workoutId + "&workoutDay=" + workoutDay;
     }
+
     @GetMapping("/addWorkout")
-    public String showCreateForm(Model model, @RequestParam("workoutName") String workoutName){
+    public String showCreateForm(Model model, @RequestParam("workoutName") String workoutName, @RequestParam("createdWorkoutId") Long createdWorkoutId) {
+
+
         WorkoutDto exercisesForm = new WorkoutDto();
+
         Exercise exercise = new Exercise();
+
         Long newWorkoutId;
-
+        if(createdWorkoutId==null){
             newWorkoutId = workoutService.createWorkoutAndReturnId(workoutName);
-           // exercisesForm.setId(newWorkoutId);
-          //  exercise.setWorkoutId(newWorkoutId);
+            exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(newWorkoutId));
             model.addAttribute("newWorkoutIdEEE", Long.toString(newWorkoutId));
+        }
+        else{
+            exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(createdWorkoutId));
+            model.addAttribute("newWorkoutIdEEE", createdWorkoutId);
+        }
+
+        // exercisesForm.setId(newWorkoutId);
+        //  exercise.setWorkoutId(newWorkoutId);
 
 
-        exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(newWorkoutId));
+
+
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
         model.addAttribute("workoutName", workoutName);
         model.addAttribute("exercisesForm", exercisesForm);
         model.addAttribute("exerciseToAdd", exercise);
         return "addWorkout";
     }
-    @PostMapping("/addWorkout/addExercise")
-    public String addExerciseToWorkout(@ModelAttribute("exerciseToAdd") Exercise exerciseToAdd, @RequestParam("newWorkoutIdEEE")Long newWorkoutIdEEE,@RequestParam("workoutName") String workoutName, Model model){
-            workoutService.addExercise(exerciseToAdd, newWorkoutIdEEE);
 
-        return "redirect:/addWorkout?workoutName="+workoutName;
+    @PostMapping("/addWorkout/addExercise")
+    public String addExerciseToWorkout(@ModelAttribute("exerciseToAdd") Exercise exerciseToAdd, @RequestParam("newWorkoutIdEEE") Long newWorkoutIdEEE, @RequestParam("workoutName") String workoutName, Model model) {
+        workoutService.addExercise(exerciseToAdd, newWorkoutIdEEE);
+
+
+        return "redirect:/addWorkout?workoutName=" + workoutName + "&createdWorkoutId="+newWorkoutIdEEE;
     }
+
     /*@GetMapping("/addWorkout")
     public String showCreateForm(Model model){
         WorkoutCreationDto exercisesForm = new WorkoutCreationDto();
@@ -108,19 +125,19 @@ public class WorkoutController {
         workoutService.createWorkout(form);
         return "redirect*/
     @GetMapping("/showWorkoutResults")
-    public String showWorkoutReults(Model model, @RequestParam String workoutId){
+    public String showWorkoutReults(Model model, @RequestParam String workoutId) {
 
         Workout workoutToShow = workoutService.getWorkoutById(Long.parseLong(workoutId));
         model.addAttribute("workoutToShow", workoutToShow);
         Map<Date, Double> workoutResultsVMap = workoutCalculatorImpl.getWorkoutVMap(workoutToShow.getUser().getId(), Long.parseLong(workoutId));
         model.addAttribute("surveyMap", workoutResultsVMap);
-        //model.addAttribute("workoutResultsVMap", workoutResultsVMap);
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
 
         return "showWorkoutResults";
     }
+
     @GetMapping("/showExerciseResults")
-    public String showExerciseResults(Model model, @RequestParam Long workoutId, @RequestParam Long exerciseId){
+    public String showExerciseResults(Model model, @RequestParam Long workoutId, @RequestParam Long exerciseId) {
         Exercise exerciseToShow = exerciseRepository.getOne(exerciseId);
         Workout workoutToShow = workoutService.getWorkoutById(workoutId);
         model.addAttribute("workoutToShow", workoutToShow);

@@ -49,7 +49,7 @@
         <form action="/addWorkout" method="get">
             <h>New workout name:</h>
             <input type="text" name="workoutName" th:value="${workoutName}">
-
+            <input type="hidden" name="createdWorkoutId">
             <input type="submit" class="button btn-outline-success" value="+">
         </form>
         </div>

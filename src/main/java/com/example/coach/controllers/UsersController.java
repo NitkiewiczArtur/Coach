@@ -17,23 +17,25 @@ public class UsersController {
     UserService userService;
 
     @GetMapping(value = "/users")
-    public ModelAndView getUsersView(){
+    public ModelAndView getUsersView() {
         List<User> users = userService.getAllUsers();
         return new ModelAndView("users", "allUsers", users);
     }
 
     @GetMapping(value = "/adduser")
-    public String getAddUserView(){
+    public String getAddUserView() {
 
         return "adduser";
     }
+
     @PostMapping(value = "/adduser")
-    public String addUser(@ModelAttribute User user){
+    public String addUser(@ModelAttribute User user) {
         userService.saveUser(user);
         return "index";
     }
+
     @PostMapping(value = "/userDetails")
-    public void userDetails(@ModelAttribute User user){
+    public void userDetails(@ModelAttribute User user) {
         System.out.println(user.getName() + " " + user.getSurname());
     }
 

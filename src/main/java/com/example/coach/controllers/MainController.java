@@ -5,6 +5,7 @@ import com.example.coach.model.Workout;
 import com.example.coach.service.ExerciseResultService;
 import com.example.coach.service.UserService;
 import com.example.coach.service.WorkoutService;
+import com.example.coach.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,18 +20,17 @@ import java.util.List;
 public class MainController {
 
 
-
     @Autowired
     UserService userService;
     @Autowired
     WorkoutService workoutService;
     @Autowired
     ExerciseResultService exerciseResultService;
+
     @GetMapping("/home")
-    public String getHomeView(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User currentlyLoggedUser = userService.getUserByLogin(currentPrincipalName);
+    public String getHomeView(Model model) {
+
+        User currentlyLoggedUser = Utils.getUser(userService);
         List<Workout> workoutList = workoutService.getUsersWorkouts(currentlyLoggedUser.getId());
 
         model.addAttribute("currentlyLoggedUser", currentlyLoggedUser);
@@ -40,11 +40,9 @@ public class MainController {
 
 
     @GetMapping("/main")
-    public ModelAndView getMainView(Model model){
+    public ModelAndView getMainView(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        User currentlyLoggedUser = userService.getUserByLogin(currentPrincipalName);
+        User currentlyLoggedUser = Utils.getUser(userService);
         List<Workout> workoutList = workoutService.getUsersWorkouts(currentlyLoggedUser.getId());
 
         model.addAttribute("workoutList", workoutList);

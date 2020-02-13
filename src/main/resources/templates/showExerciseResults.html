@@ -48,16 +48,16 @@
                 <input type="hidden" name="exerciseId" th:value="${exercise.id}">
                 <input type="hidden" name="workoutId" th:value="${workoutToShow.id}">
                 <td>
-                <input type="submit" value="Show Graph">
+                    <input type="submit" value="Show Graph">
                 </td>
             </form>
         </tr>
-            <form action="/showWorkoutResults" method="get">
+        <form action="/showWorkoutResults" method="get">
 
-                <input type="hidden" name="workoutId" th:value="${workoutToShow.id}">
+            <input type="hidden" name="workoutId" th:value="${workoutToShow.id}">
 
-                    <input type="submit" value="Show Workout Graph">
-            </form>
+            <input type="submit" value="Show Workout Graph">
+        </form>
 
 
     </table>
@@ -67,50 +67,7 @@
         <div id="VChart"
              style="width: 550px; height: 400px; margin: 0 auto"></div>
     </div>
-   <!-- <div class="container">
 
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="panel panel-default">
-
-                    <div class="pane-body">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Load</th>
-                                <th>Reps</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-
-                            </tbody>
-
-                        </table>
-                        <thead>
-                        <tr>
-                            <th>Day</th>
-                            <th>V</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        <tr th:each="result : ${workoutResultsVMap}">
-
-                            <td th:text="${#dates.formatISO(result.key)}"></td>
-                            <td th:text="${result.value}"></td>
-                        </tr>
-                        </tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>-->
 
     </div>
 </main>
@@ -122,7 +79,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script th:inline="javascript">
-    $(function(){
+    $(function () {
         Highcharts.chart('VChart', {
             chart: {
                 type: 'line'
@@ -152,7 +109,7 @@
             series: [{
                 name: 'Volume [kg]',
                 data: [[${surveyMap.values()}]]
-            } ]
+            }]
         });
     });
 </script>

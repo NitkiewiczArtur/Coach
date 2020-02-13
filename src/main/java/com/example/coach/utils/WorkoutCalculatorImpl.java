@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Component
 public class WorkoutCalculatorImpl implements WorkoutCalculator{
 
@@ -45,7 +43,7 @@ public class WorkoutCalculatorImpl implements WorkoutCalculator{
         return tempV;
     }
 
-    public Map<String, Map<Date, Double>> getMapOfExerciseNameAndExercisesVForEachDay(Long userId, Long workoutId){
+  /*  public Map<String, Map<Date, Double>> getMapOfExerciseNameAndExercisesVForEachDay(Long userId, Long workoutId){
         Map<String, Map<Date, Double>> resultMap = new HashMap<>();
         List<Date> daysOfTrainings = exerciseResultService.getExResDatesForUserId(userId);
         List<Exercise> exerciseList = exerciseRepository.findAllByWorkouts(workoutService.getWorkoutById(workoutId));
@@ -60,11 +58,11 @@ public class WorkoutCalculatorImpl implements WorkoutCalculator{
             resultMap.put(exercise.getName(), exResultMap);
         }
         return resultMap;
-        }
+        }*/
 
     public Map<Date, Double> getWorkoutVMap(Long userId, Long workoutId){
         List<Date> daysOfTrainings = exerciseResultService.getExResDatesForUserId(userId);
-        Map<Date, Double> resultMap = new HashMap<>();
+        Map<Date, Double> resultMap = new TreeMap<>();
         for(Date day : daysOfTrainings){
             resultMap.put(day,countTrainingVforSpecificDay(day, workoutId));
         }
@@ -72,7 +70,7 @@ public class WorkoutCalculatorImpl implements WorkoutCalculator{
     }
     public Map<Date, Double> getExerciseVMap(Long userId, Long workoutId, Long exerciseId){
         List<Date> daysOfTrainings = exerciseResultService.getExResDatesForUserId(userId);
-        Map<Date, Double> resultMap = new HashMap<>();
+        Map<Date, Double> resultMap = new TreeMap<>();
         for(Date day : daysOfTrainings){
             resultMap.put(day,countExerciseVforSpecificDay(day, workoutId, exerciseId));
         }
