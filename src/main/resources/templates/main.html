@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
 <main class="container">
@@ -46,12 +46,12 @@
         </thead>
         <tbody>
         <div class="nav justify-content-end">
-        <form action="/addWorkout" method="get">
-            <h>New workout name:</h>
-            <input type="text" name="workoutName" th:value="${workoutName}">
-            <input type="hidden" name="createdWorkoutId">
-            <input type="submit" class="button btn-outline-success" value="+">
-        </form>
+            <form action="/addWorkout" method="get">
+                <h>New workout name:</h>
+                <input type="text" name="workoutName" th:value="${workoutName}">
+                <input type="hidden" name="createdWorkoutId">
+                <input type="submit" class="button btn-outline-success" value="+">
+            </form>
         </div>
         <tr th:each="workout : ${workoutList}">
             <td th:text="${workout.name}"></td>
@@ -68,9 +68,48 @@
                 <input type="hidden" name="workoutId" th:value="${workout.id}">
                 <td><input type="submit" value="Delete"></td>
             </form>
+            <td>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#przykladowyModal3">
+                    Delete Workout
+                </button>
+            </td>
+            <div class="modal" id="przykladowyModal3" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tytuł okna</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are You shure You want to delete this workout?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                            <form action="/deleteWorkout" method="get">
+                                <button type="submit" class="btn btn-danger">YES
+                                </button>
+                                <input type="hidden" name="workoutId" th:value="${workout.id}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </tr>
         </tbody>
     </table>
+
+
 </main>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>
