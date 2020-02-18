@@ -125,4 +125,9 @@ public class WorkoutController {
 
         return "showExerciseResults";
     }
+    @GetMapping("/deleteWorkout")
+    public String deleteWorkout(Model model, @RequestParam Long workoutId){
+        workoutService.deleteWorkout(workoutId);
+        return "redirect:/main";
+    }
 }

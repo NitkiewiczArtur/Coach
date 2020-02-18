@@ -64,6 +64,10 @@
                 <input type="hidden" name="workoutId" th:value="${workout.id}">
                 <td><input type="submit" value="Add"></td>
             </form>
+            <form action="/deleteWorkout" method="get">
+                <input type="hidden" name="workoutId" th:value="${workout.id}">
+                <td><input type="submit" value="Delete"></td>
+            </form>
         </tr>
         </tbody>
     </table>

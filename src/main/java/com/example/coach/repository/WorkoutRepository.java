@@ -15,6 +15,7 @@ import java.util.List;
 //??? adnotacja?
 
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
+    void deleteById(Long id);
     List<Workout> getWorkoutsByUser_Id(Long usersId);
     Workout getWorkoutById(Long workoutId);
     List<Workout> getWorkoutsByExercises(Exercise exercise);
@@ -25,4 +26,12 @@ public interface WorkoutRepository extends JpaRepository<Workout, Long> {
                     "insert into WORKOUT_EXERCISE values (:WORKOUT_ID  , :EXERCISE_ID)",
             nativeQuery = true)
     void insertExerciseToWorkout(@Param("WORKOUT_ID") Long WORKOUT_ID, @Param("EXERCISE_ID") Long EXERCISE_ID);
+
+    @Transactional
+    @Modifying
+    @Query(
+            value =
+                    "DELETE FROM WORKOUT_EXERCISE WHERE WORKOUT_ID =(:WORKOUT_ID) ",
+            nativeQuery = true)
+    void deleteWorkoutExerciseRelationTableRecords(@Param("WORKOUT_ID") Long workoutId);
 }

@@ -5,6 +5,7 @@ import com.example.coach.model.Exercise;
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
 import com.example.coach.repository.ExerciseRepository;
+import com.example.coach.repository.ExerciseResultRepository;
 import com.example.coach.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,16 +17,17 @@ import java.util.List;
 
 @Service
 public class WorkoutService {
-
+    private ExerciseResultRepository exerciseResultRepository;
     private WorkoutRepository workoutRepository;
     private UserService userService;
     private ExerciseRepository exerciseRepository;
 
     @Autowired
-    public WorkoutService(WorkoutRepository workoutRepository, UserService userService, ExerciseRepository exerciseRepository) {
+    public WorkoutService(WorkoutRepository workoutRepository, UserService userService, ExerciseRepository exerciseRepository, ExerciseResultRepository exerciseResultRepository) {
         this.userService = userService;
         this.workoutRepository = workoutRepository;
         this.exerciseRepository = exerciseRepository;
+        this.exerciseResultRepository = exerciseResultRepository;
     }
 
     public Workout getWorkoutById(Long workoutId) {
@@ -65,6 +67,12 @@ public class WorkoutService {
         Long exId = exercise.getId();
         workoutRepository.insertExerciseToWorkout(workoutId, exId);
     }
+    public void deleteWorkout(Long workoutId){
 
+        exerciseResultRepository.deleteExerciseResultForWorkout(workoutId);
+
+        workoutRepository.deleteWorkoutExerciseRelationTableRecords(workoutId);
+        workoutRepository.deleteById(workoutId);
+    }
 
 }

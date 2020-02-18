@@ -42,4 +42,7 @@ public class ExerciseResultService {
             exerciseResultRepository.save(exRes);
         }
     }
+    public void deleteExerciseResultForWorkout(Long workoutId){
+        exerciseResultRepository.deleteExerciseResultForWorkout(workoutId);
+    }
 }
