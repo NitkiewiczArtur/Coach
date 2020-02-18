@@ -40,7 +40,7 @@ public class WorkoutService {
     public List<Workout> getUsersWorkouts(Long usersId) {
         return workoutRepository.getWorkoutsByUser_Id(usersId);
     }
-    
+
 
     public Long createWorkoutAndReturnId(String workoutName) {
         Workout newWorkout = new Workout();
@@ -55,20 +55,15 @@ public class WorkoutService {
     }
 
     public List<Exercise> getExerciseListByWorkoutId(Long workoutId) {
-       Workout workout = workoutRepository.getWorkoutById(workoutId);
-
-        List<Exercise> exercises =exerciseRepository.findAllByWorkouts(workout);
-       return exercises;
+        Workout workout = workoutRepository.getWorkoutById(workoutId);
+        List<Exercise> exercises = exerciseRepository.findAllByWorkouts(workout);
+        return exercises;
     }
 
-    public void addExercise(Exercise exercise, Long workoutId) {
-        Workout workoutToInsertExerciseInto = workoutRepository.getWorkoutById(workoutId);
-
-        List<Workout> workouts = workoutRepository.getWorkoutsByExercises(exercise);
-        workouts.add(workoutToInsertExerciseInto);
-        exercise.setWorkouts(workouts);
+    public void addExerciseToWorkout(Exercise exercise, Long workoutId) {
         exerciseRepository.save(exercise);
-
+        Long exId = exercise.getId();
+        workoutRepository.insertExerciseToWorkout(workoutId, exId);
     }
 
 
