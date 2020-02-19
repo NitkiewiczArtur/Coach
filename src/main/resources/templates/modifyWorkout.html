@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Workout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/main">Coach</a>
+    <div style="float: left">
+        <h2>Main Menu</h2>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/main">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Pricing</a>
+            </li>
+        </ul>
+        <span class="navbar-text" style="float: left">
+
+                <a th:text=${currentlyLoggedUser.login}></a>
+                    <a th:text=${currentlyLoggedUser.name}></a>
+
+    </span>
+    </div>
+</nav>
+
+<h2>New workout: </h2><h2 th:text="${workoutName}"></h2>
+
+<table class="table table-striped" id="resultTable">
+    <tr>
+
+        <th>Ex. name</th>
+
+    </tr>
+    <tr th:each="ex : ${exercisesForm.exercises}">
+        <td th:text="${ex.name}"></td>
+    </tr>
+
+
+</table>
+<form action="#" th:action="@{/modifyWorkout/addExercise}" th:object="${exerciseToAdd}"
+      method="post">
+        <input type="submit" th:value="submit">
+                 <input th:field="*{name}" type="text"  />
+             <input type="hidden" name="workoutId"  th:value="${workoutId}"/>
+            <input type="hidden" name="workoutName" th:value="${workoutName}">
+
+
+</form>
+
+</body>
+</html>

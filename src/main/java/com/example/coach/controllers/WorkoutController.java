@@ -130,4 +130,30 @@ public class WorkoutController {
         workoutService.deleteWorkout(workoutId);
         return "redirect:/main";
     }
+    @GetMapping("/modifyWorkout")
+    public String modifyWorkout(Model model, @RequestParam Long workoutId,  @RequestParam("workoutName") String workoutName){
+
+        WorkoutDto exercisesForm = new WorkoutDto();
+
+        Exercise exercise = new Exercise();
+        exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(workoutId));
+        model.addAttribute("workoutId", workoutId);
+        model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
+        model.addAttribute("exercisesForm", exercisesForm);
+        model.addAttribute("exerciseToAdd", exercise);
+        model.addAttribute("workoutName", workoutName);
+        return "modifyWorkout";
+    }
+    @PostMapping("/modifyWorkout/addExercise")
+    public String addExerciseToModifiedWorkout(@ModelAttribute("exerciseToAdd") Exercise exerciseToAdd, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
+        workoutService.addExerciseToWorkout(exerciseToAdd, workoutId);
+
+        return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
+    }
+    @PostMapping("/modifyWorkout/removeExercise")
+    public String removeExercise(@ModelAttribute("exerciseToRemove") Exercise exerciseToRemove, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
+        workoutService.addExerciseToWorkout(exerciseToRemove, workoutId);
+
+        return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
+    }
 }
