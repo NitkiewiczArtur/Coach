@@ -69,10 +69,7 @@
                 <input type="hidden" name="workoutId" th:value="${workout.id}">
                 <td><input type="submit" value="Modify"></td>
             </form>
-            <form action="/deleteWorkout" method="get">
-                <input type="hidden" name="workoutId" th:value="${workout.id}">
-                <td><input type="submit" value="Delete"></td>
-            </form>
+
             <td>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#przykladowyModal3">
                     Delete Workout

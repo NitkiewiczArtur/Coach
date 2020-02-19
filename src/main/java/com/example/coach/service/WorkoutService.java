@@ -75,6 +75,8 @@ public class WorkoutService {
         workoutRepository.deleteById(workoutId);
     }
     public void deleteExerciseFromWorkout(Long exerciseId){
+        exerciseResultRepository.deleteExerciseResultForExerciseId(exerciseId);
+        workoutRepository.deleteWorkoutExerciseRelationTableRecordsByExId(exerciseId);
         exerciseRepository.delete(exerciseRepository.getOne(exerciseId));
     }
 

@@ -27,4 +27,11 @@ public interface ExerciseResultRepository extends JpaRepository<ExerciseResult, 
                     "DELETE FROM EXERCISE_RESULT WHERE WORKOUT_ID =(:WORKOUT_ID) ",
             nativeQuery = true)
     void deleteExerciseResultForWorkout(@Param("WORKOUT_ID") Long workoutId);
+    @Transactional
+    @Modifying
+    @Query(
+            value =
+                    "DELETE FROM EXERCISE_RESULT WHERE EXERCISE_ID =(:EXERCISE_ID) ",
+            nativeQuery = true)
+    void deleteExerciseResultForExerciseId(@Param("EXERCISE_ID") Long exerciseId);
 }

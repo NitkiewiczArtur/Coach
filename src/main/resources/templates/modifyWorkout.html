@@ -32,8 +32,9 @@
     </span>
     </div>
 </nav>
+<main class="container">
 
-<h2>New workout: </h2><h2 th:text="${workoutName}"></h2>
+<h2>Modified workout: </h2><h2 th:text="${workoutName}"></h2>
 
 <table class="table table-striped" id="resultTable">
     <tr>
@@ -43,6 +44,14 @@
     </tr>
     <tr th:each="ex : ${exercisesForm.exercises}">
         <td th:text="${ex.name}"></td>
+            <form action="/modifyWorkout/removeExercise"
+                  method="post">
+                <input type="hidden" name="exerciseToRemoveId"  th:value="${ex.id}">
+                <input type="hidden" name="workoutId"  th:value="${workoutId}">
+                <input type="hidden" name="workoutName" th:value="${workoutName}">
+        <td><input type="submit" class="btn-danger" value="Delete"></td>
+        </form>
+
     </tr>
 
 
@@ -51,11 +60,11 @@
       method="post">
         <input type="submit" th:value="submit">
                  <input th:field="*{name}" type="text"  />
-             <input type="hidden" name="workoutId"  th:value="${workoutId}"/>
+             <input type="hidden" name="workoutId"  th:value="${workoutId}">
             <input type="hidden" name="workoutName" th:value="${workoutName}">
 
 
 </form>
-
+</main>
 </body>
 </html>

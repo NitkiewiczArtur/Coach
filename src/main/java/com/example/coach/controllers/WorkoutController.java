@@ -151,8 +151,8 @@ public class WorkoutController {
         return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
     }
     @PostMapping("/modifyWorkout/removeExercise")
-    public String removeExercise(@ModelAttribute("exerciseToRemove") Exercise exerciseToRemove, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
-        workoutService.addExerciseToWorkout(exerciseToRemove, workoutId);
+    public String removeExercise(@ModelAttribute("exerciseToRemoveId") Long exerciseToRemoveId, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
+        workoutService.deleteExerciseFromWorkout(exerciseToRemoveId);
 
         return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
     }
