@@ -5,6 +5,18 @@ VALUES (1, 'Arkadiusz' , 'Lizak' , 'password', 'arli');
 INSERT INTO user (id, name, surname, password, login)
 VALUES (2, 'Czarek', 'Czarnecko', 'password', 'czacza');
 
+INSERT INTO role (id, name )
+VALUES(1, 'ROLE_USER');
+INSERT INTO role (id, name )
+VALUES(2, 'ROLE_COACH');
+
+INSERT INTO user_role
+VALUES (1, 1);
+INSERT INTO user_role
+VALUES (2, 1);
+INSERT INTO user_role
+VALUES (2, 2);
+
 INSERT INTO exercise(id, name )
 VALUES(1, 'przysiady');
 INSERT INTO exercise(id, name )

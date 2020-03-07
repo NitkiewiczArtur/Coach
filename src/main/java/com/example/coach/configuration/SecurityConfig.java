@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
@@ -21,12 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private UserDetailsService customUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/index", "/users", "/adduser", "/main","/addWorkout","/showWorkoutResults", "/addWorkoutResult", "/home")
+                .antMatchers("/index", "/adduser", "/main","/addWorkout","/showWorkoutResults", "/addWorkoutResult", "/home")
                     .hasAnyAuthority("ROLE_USER")
+                .antMatchers("/users").hasAnyAuthority("ROLE_COACH")
                     .anyRequest().permitAll()
                 .and()
                 .csrf().disable()
