@@ -43,20 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/login");
     }
 //adsada
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password(passwordEncoder.encode("test"))
-                .roles("USER");
-
-        auth.jdbcAuthentication()
-                .usersByUsernameQuery("SELECT u.login, u.password, 1 from user u where u.login=?")
-                .authoritiesByUsernameQuery("SELECT u.login, 'ROLE_USER', 1, from user u where u.login=?")
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder);
-    }
-
+@Autowired
+public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth
+            .userDetailsService(customUserDetailsService)
+            .passwordEncoder(passwordEncoder);
+}
     }
 
 
