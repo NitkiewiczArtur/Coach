@@ -47,11 +47,11 @@
 
 
 </table>
-<form action="#" th:action="@{/addWorkout/addExercise}" th:object="${exerciseToAdd}"
+<form action="#" th:action="@{/createWorkout/addExercise}" th:object="${exerciseToAdd}"
       method="post">
         <input type="submit" th:value="submit">
                  <input th:field="*{name}" type="text"  />
-             <input type="hidden" name="newWorkoutIdEEE"  th:value="${newWorkoutIdEEE}"/>
+             <input type="hidden" name="newWorkoutId"  th:value="${newWorkoutId}"/>
             <input type="hidden" name="workoutName" th:value="${workoutName}">
 
 

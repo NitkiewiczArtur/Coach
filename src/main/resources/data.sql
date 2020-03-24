@@ -1,9 +1,13 @@
 
+INSERT INTO coach (id, login)
+VALUES (3, 'czacza');
 
-INSERT INTO user (id, name, surname, password, login)
-VALUES (1, 'Arkadiusz' , 'Lizak' , 'password', 'arli');
+INSERT INTO user (id, name, surname, password, login, coach_id)
+VALUES (1, 'Arkadiusz' , 'Lizak' , 'password', 'arli', 3);
 INSERT INTO user (id, name, surname, password, login)
 VALUES (2, 'Czarek', 'Czarnecko', 'password', 'czacza');
+
+
 
 INSERT INTO role (id, name )
 VALUES(1, 'ROLE_USER');

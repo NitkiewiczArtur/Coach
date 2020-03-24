@@ -1,7 +1,9 @@
 package com.example.coach.controllers;
 
+import com.example.coach.model.Coach;
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
+import com.example.coach.repository.CoachRepository;
 import com.example.coach.service.ExerciseResultService;
 import com.example.coach.service.UserService;
 import com.example.coach.service.WorkoutService;
@@ -19,7 +21,8 @@ import java.util.List;
 @Controller
 public class MainController {
 
-
+    @Autowired
+    CoachRepository coachRepository;
     @Autowired
     UserService userService;
     @Autowired
@@ -41,12 +44,24 @@ public class MainController {
 
     @GetMapping("/main")
     public ModelAndView getMainView(Model model) {
-
         User currentlyLoggedUser = Utils.getUser(userService);
-        List<Workout> workoutList = workoutService.getUsersWorkouts(currentlyLoggedUser.getId());
+        if(isCoach()== false){
+            List<Workout> workoutList = workoutService.getUsersWorkouts(currentlyLoggedUser.getId());
+            model.addAttribute("workoutList", workoutList);
+            return new ModelAndView("main", "currentlyLoggedUser", currentlyLoggedUser);
+        }else{
+            List<User> pupilsList = userService.getAllByCoachId(3L);
+            model.addAttribute("pupilsList", pupilsList);
+            return new ModelAndView("main_coach", "currentlyLoggedUser", currentlyLoggedUser);
+        }
 
-        model.addAttribute("workoutList", workoutList);
-        return new ModelAndView("main", "currentlyLoggedUser", currentlyLoggedUser);
+    }
+    private boolean isCoach(){
+        User currentlyLoggedUser = Utils.getUser(userService);
+        if(coachRepository.findByLogin(currentlyLoggedUser.getLogin()) !=null)
+        return true;
+       else return false;
+
     }
 
 }

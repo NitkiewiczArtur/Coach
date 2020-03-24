@@ -1,8 +1,12 @@
 package com.example.coach.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
-
+@Setter
+@Getter
 @Entity
 @Table(name = "exercise")
 public class Exercise {
@@ -16,44 +20,5 @@ public class Exercise {
     @OneToMany(mappedBy = "exercise")
     private List<ExerciseResult> exerciseResults;
 
-/*
-    @Transient
-    private Long workoutId;
 
-    public Long getWorkoutId() {
-        return workoutId;
-    }
-
-    public void setWorkoutId(Long workoutId) {
-        this.workoutId = workoutId;
-    }
-*/
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Workout> getWorkouts() {
-        return workouts;
-    }
-
-    public void setWorkouts(List<Workout> workouts) {
-        this.workouts = workouts;
-    }
-
-    public List<ExerciseResult> getExerciseResults() {
-        return exerciseResults;
-    }
-
-    public void setExerciseResults(List<ExerciseResult> exerciseResults) {
-        this.exerciseResults = exerciseResults;
-    }
 }

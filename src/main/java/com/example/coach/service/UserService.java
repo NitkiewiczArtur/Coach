@@ -30,4 +30,7 @@ public class UserService {
     public User getUserByLogin(String login){
        return  userRepository.getUserByLogin(login);
     }
+    public List<User> getAllByCoachId(Long coachId){
+        return userRepository.getAllByCoachId(coachId);
+    }
 }

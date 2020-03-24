@@ -2,6 +2,9 @@ package com.example.coach.controllers;
 
 import com.example.coach.DTO.WorkoutDto;
 import com.example.coach.DTO.WorkoutResultDTO;
+import com.example.coach.Exceptions.NoDateInsertedException;
+import com.example.coach.Exceptions.NoExcerciseNameInsertedException;
+import com.example.coach.Exceptions.NoWokoutNameInsertedException;
 import com.example.coach.model.Exercise;
 import com.example.coach.model.ExerciseResult;
 import com.example.coach.model.Workout;
@@ -37,14 +40,14 @@ public class WorkoutController {
 
 
     @GetMapping("/addWorkoutResult")
-    public String showAddWorkoutResultPanel(@RequestParam("workoutId") Long workoutId, Model model, @RequestParam("workoutDay") String workoutDay) throws ParseException {
+    public String showAddWorkoutResultPanel(@RequestParam("workoutId") Long workoutId, Model model, @RequestParam("workoutDay") String workoutDay) throws ParseException, NoDateInsertedException{
+        if(workoutDay.isEmpty())
+            throw new NoDateInsertedException();
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date date = formatter.parse(workoutDay);
         List<Exercise> exerciseList = workoutService.getExerciseListByWorkoutId(workoutId);
         WorkoutResultDTO workoutResultsForm = new WorkoutResultDTO();
-        /*if(workoutResultsForm.getExercisesResults().size() == 0)
-            workoutResultsForm.addExerciseResult(new ExerciseResult(), null);*/
         workoutResultsForm.setExercisesResults(exerciseResultService.getAllByDayOfTrainingAndWorkoutId(date, workoutId));
 
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
@@ -68,36 +71,36 @@ public class WorkoutController {
         return "redirect:/addWorkoutResult?workoutId=" + workoutId + "&workoutDay=" + workoutDay;
     }
 
-    @GetMapping("/addWorkout")
+    @GetMapping("/createWorkout")
     public String showCreateForm(Model model, @RequestParam("workoutName") String workoutName, @RequestParam("createdWorkoutId") Long createdWorkoutId) {
-
+        if(workoutName.isEmpty()) throw new NoWokoutNameInsertedException();
 
         WorkoutDto exercisesForm = new WorkoutDto();
-
         Exercise exercise = new Exercise();
 
         Long newWorkoutId;
         if (createdWorkoutId == null) {
             newWorkoutId = workoutService.createWorkoutAndReturnId(workoutName);
             exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(newWorkoutId));
-            model.addAttribute("newWorkoutIdEEE", Long.toString(newWorkoutId));
+            model.addAttribute("newWorkoutId", Long.toString(newWorkoutId));
         } else {
             exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(createdWorkoutId));
-            model.addAttribute("newWorkoutIdEEE", createdWorkoutId);
+            model.addAttribute("newWorkoutId", createdWorkoutId);
         }
 
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
         model.addAttribute("workoutName", workoutName);
         model.addAttribute("exercisesForm", exercisesForm);
         model.addAttribute("exerciseToAdd", exercise);
-        return "addWorkout";
+        return "createWorkout";
     }
 
-    @PostMapping("/addWorkout/addExercise")
-    public String addExerciseToWorkout(@ModelAttribute("exerciseToAdd") Exercise exerciseToAdd, @RequestParam("newWorkoutIdEEE") Long newWorkoutIdEEE, @RequestParam("workoutName") String workoutName, Model model) {
-        workoutService.addExerciseToWorkout(exerciseToAdd, newWorkoutIdEEE);
+    @PostMapping("/createWorkout/addExercise")
+    public String addExerciseToWorkout(@ModelAttribute("exerciseToAdd") Exercise exerciseToAdd, @RequestParam("newWorkoutId") Long newWorkoutId, @RequestParam("workoutName") String workoutName, Model model) {
+        if(exerciseToAdd.getName().isEmpty()) throw new NoExcerciseNameInsertedException();
+        workoutService.addExerciseToWorkout(exerciseToAdd, newWorkoutId);
 
-        return "redirect:/addWorkout?workoutName=" + workoutName + "&createdWorkoutId=" + newWorkoutIdEEE;
+        return "redirect:/createWorkout?workoutName=" + workoutName + "&createdWorkoutId=" + newWorkoutId;
     }
 
     @GetMapping("/showWorkoutResults")
@@ -146,6 +149,8 @@ public class WorkoutController {
     }
     @PostMapping("/modifyWorkout/addExercise")
     public String addExerciseToModifiedWorkout(@ModelAttribute("exerciseToAdd") Exercise exerciseToAdd, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
+        if(exerciseToAdd.getName().isEmpty()) throw new NoExcerciseNameInsertedException();
+
         workoutService.addExerciseToWorkout(exerciseToAdd, workoutId);
 
         return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;

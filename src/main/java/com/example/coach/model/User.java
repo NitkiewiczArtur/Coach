@@ -19,7 +19,9 @@ public class User {
     private String login;
     @OneToMany(mappedBy = "user")
     private List<Workout> workouts;
-
+    @ManyToOne
+    @JoinColumn(name = "coach_id")
+    private Coach coach;
 
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(
