@@ -45,14 +45,22 @@
         </tr>
         </thead>
         <tbody>
-
-        <tr th:each="pupil : ${pupilsList}">
-            <td th:text="${pupil.name}"></td>
-            <form action="/main" method="get">
-                <input type="hidden" name="pupilId" th:value="${pupil.id}">
+        <div class="nav justify-content-end">
+            <form action="/createWorkoutForPupil" method="get">
+                <h>New workout name:</h>
+                <input type="text" name="workoutName" th:value="${workoutName}">
+                <input type="hidden" name="createdWorkoutId">
+                <input type="hidden" name="pupilId" th:value="${pupilId}">
+                <input type="submit" class="button btn-success" value="+">
+            </form>
+        </div>
+        <tr th:each="workout : ${workoutList}">
+            <td th:text="${workout.name}"></td>
+            <form action="/showWorkoutResults" method="get">
+                <input type="hidden" name="workoutId" th:value="${workout.id}">
                 <td><input type="submit" value="Show"></td>
             </form>
-           <!-- <form action="/addWorkoutResult" method="get">
+            <form action="/addWorkoutResult" method="get">
                 <td>dd-MM-yyyy<input type="text" name="workoutDay" th:value="${workoutDay}"></td>
                 <input type="hidden" name="workoutId" th:value="${workout.id}">
                 <td><input type="submit" value="Add"></td>
@@ -61,14 +69,14 @@
                 <input type="hidden" name="workoutName" th:value="${workout.name}">
                 <input type="hidden" name="workoutId" th:value="${workout.id}">
                 <td><input type="submit" value="Modify"></td>
-            </form>-->
+            </form>
 
             <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#przykladowyModal3">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#popup">
                     Delete Workout
                 </button>
             </td>
-            <div class="modal" id="przykladowyModal3" tabindex="-1" role="dialog">
+            <div class="modal" id="popup" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -85,7 +93,7 @@
                             <form action="/deleteWorkout" method="get">
                                 <button type="submit" class="btn btn-danger">YES
                                 </button>
-                                <input type="hidden" name="workoutId">
+                                <input type="hidden" name="workoutId" th:value="${workout.id}">
                             </form>
                         </div>
                     </div>

@@ -34,8 +34,8 @@ public class WorkoutService {
         return workoutRepository.getWorkoutById(workoutId);
     }
 
-    public Long saveWorkoutAndReturnId(Workout workout) {
-        workout.setUser(getCurrentlyloggedUser());
+    public Long saveWorkoutAndReturnId(Workout workout, User user ) {
+        workout.setUser(user);
         return workoutRepository.save(workout).getId();
     }
 
@@ -44,10 +44,10 @@ public class WorkoutService {
     }
 
 
-    public Long createWorkoutAndReturnId(String workoutName) {
+    public Long createWorkoutForUserAndReturnId(String workoutName, User user) {
         Workout newWorkout = new Workout();
         newWorkout.setName(workoutName);
-        return this.saveWorkoutAndReturnId(newWorkout);
+        return this.saveWorkoutAndReturnId(newWorkout, user);
     }
 
     private User getCurrentlyloggedUser() {

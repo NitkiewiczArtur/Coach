@@ -56,7 +56,7 @@ public class WorkoutController {
         model.addAttribute("exerciseList", exerciseList);
         model.addAttribute("workoutId", workoutId);
         model.addAttribute("exerciseResultToAdd", new ExerciseResult());
-        return "addWorkoutResult";
+        return "add-workout-result";
     }
 
     @PostMapping("/addWorkoutResult")
@@ -68,11 +68,11 @@ public class WorkoutController {
 
         exerciseResultService.addExerciseResult(exerciseResultToAdd, workoutId, date);
 
-        return "redirect:/addWorkoutResult?workoutId=" + workoutId + "&workoutDay=" + workoutDay;
+        return "redirect:/add-workout-result?workoutId=" + workoutId + "&workoutDay=" + workoutDay;
     }
 
     @GetMapping("/createWorkout")
-    public String showCreateForm(Model model, @RequestParam("workoutName") String workoutName, @RequestParam("createdWorkoutId") Long createdWorkoutId) {
+    public String showCreateWorkoutForm(Model model, @RequestParam("workoutName") String workoutName, @RequestParam("createdWorkoutId") Long createdWorkoutId) {
         if(workoutName.isEmpty()) throw new NoWokoutNameInsertedException();
 
         WorkoutDto exercisesForm = new WorkoutDto();
@@ -80,11 +80,13 @@ public class WorkoutController {
 
         Long newWorkoutId;
         if (createdWorkoutId == null) {
-            newWorkoutId = workoutService.createWorkoutAndReturnId(workoutName);
+            newWorkoutId = workoutService.createWorkoutForUserAndReturnId(workoutName, Utils.getUser(userService));
             exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(newWorkoutId));
+
             model.addAttribute("newWorkoutId", Long.toString(newWorkoutId));
         } else {
             exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(createdWorkoutId));
+
             model.addAttribute("newWorkoutId", createdWorkoutId);
         }
 
@@ -92,7 +94,33 @@ public class WorkoutController {
         model.addAttribute("workoutName", workoutName);
         model.addAttribute("exercisesForm", exercisesForm);
         model.addAttribute("exerciseToAdd", exercise);
-        return "createWorkout";
+        return "create-workout";
+    }
+    @GetMapping("/createWorkoutForPupil")
+    public String showCreateWorkoutFormForCoach(Model model, @RequestParam("workoutName") String workoutName, @RequestParam("createdWorkoutId") Long createdWorkoutId,
+                                                @RequestParam Long pupilId ) {
+        if(workoutName.isEmpty()) throw new NoWokoutNameInsertedException();
+
+        WorkoutDto exercisesForm = new WorkoutDto();
+        Exercise exercise = new Exercise();
+
+        Long newWorkoutId;
+        if (createdWorkoutId == null) {
+            newWorkoutId = workoutService.createWorkoutForUserAndReturnId(workoutName, userService.getUserById(pupilId));
+            exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(newWorkoutId));
+
+            model.addAttribute("newWorkoutId", Long.toString(newWorkoutId));
+        } else {
+            exercisesForm.setExercises(workoutService.getExerciseListByWorkoutId(createdWorkoutId));
+
+            model.addAttribute("newWorkoutId", createdWorkoutId);
+        }
+
+        model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
+        model.addAttribute("workoutName", workoutName);
+        model.addAttribute("exercisesForm", exercisesForm);
+        model.addAttribute("exerciseToAdd", exercise);
+        return "create-workout";
     }
 
     @PostMapping("/createWorkout/addExercise")
@@ -100,7 +128,7 @@ public class WorkoutController {
         if(exerciseToAdd.getName().isEmpty()) throw new NoExcerciseNameInsertedException();
         workoutService.addExerciseToWorkout(exerciseToAdd, newWorkoutId);
 
-        return "redirect:/createWorkout?workoutName=" + workoutName + "&createdWorkoutId=" + newWorkoutId;
+        return "redirect:/create-workout?workoutName=" + workoutName + "&createdWorkoutId=" + newWorkoutId;
     }
 
     @GetMapping("/showWorkoutResults")
@@ -112,7 +140,7 @@ public class WorkoutController {
         model.addAttribute("surveyMap", workoutResultsVMap);
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
 
-        return "showWorkoutResults";
+        return "show-workout-results";
     }
 
     @GetMapping("/showExerciseResults")
@@ -126,7 +154,7 @@ public class WorkoutController {
         model.addAttribute("exerciseToShow", exerciseToShow);
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
 
-        return "showExerciseResults";
+        return "show-exercise-results";
     }
     @GetMapping("/deleteWorkout")
     public String deleteWorkout(Model model, @RequestParam Long workoutId){
@@ -145,7 +173,7 @@ public class WorkoutController {
         model.addAttribute("exercisesForm", exercisesForm);
         model.addAttribute("exerciseToAdd", exercise);
         model.addAttribute("workoutName", workoutName);
-        return "modifyWorkout";
+        return "modify-workout";
     }
     @PostMapping("/modifyWorkout/addExercise")
     public String addExerciseToModifiedWorkout(@ModelAttribute("exerciseToAdd") Exercise exerciseToAdd, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
@@ -153,12 +181,12 @@ public class WorkoutController {
 
         workoutService.addExerciseToWorkout(exerciseToAdd, workoutId);
 
-        return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
+        return "redirect:/modify-workout?workoutName=" + workoutName + "&workoutId=" + workoutId;
     }
     @PostMapping("/modifyWorkout/removeExercise")
     public String removeExercise(@ModelAttribute("exerciseToRemoveId") Long exerciseToRemoveId, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
         workoutService.deleteExerciseFromWorkout(exerciseToRemoveId);
 
-        return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
+        return "redirect:/modify-workout?workoutName=" + workoutName + "&workoutId=" + workoutId;
     }
 }

@@ -40,39 +40,23 @@
         <thead>
         <tr>
             <th>Workout</th>
-            <th>Show progress</th>
-            <th>Add workout result</th>
+            <th>Show</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <div class="nav justify-content-end">
-            <form action="/createWorkout" method="get">
-                <h>New workout name:</h>
-                <input type="text" name="workoutName" th:value="${workoutName}">
-                <input type="hidden" name="createdWorkoutId">
-                <input type="submit" class="button btn-success" value="+">
+
+        <tr th:each="pupil : ${pupilsList}">
+            <td th:text="${pupil.name}"></td>
+            <form action="/mainCoachViewOnPupil" method="get">
+                <input type="hidden" name="pupilId" th:value="${pupil.id}">
+                <td><input type="submit" value="Show pupil"></td>
             </form>
-        </div>
-        <tr th:each="workout : ${workoutList}">
-            <td th:text="${workout.name}"></td>
-            <form action="/showWorkoutResults" method="get">
-                <input type="hidden" name="workoutId" th:value="${workout.id}">
-                <td><input type="submit" value="Show"></td>
-            </form>
-            <form action="/addWorkoutResult" method="get">
-                <td>dd-MM-yyyy<input type="text" name="workoutDay" th:value="${workoutDay}"></td>
-                <input type="hidden" name="workoutId" th:value="${workout.id}">
-                <td><input type="submit" value="Add"></td>
-            </form>
-            <form action="/modifyWorkout" method="get">
-                <input type="hidden" name="workoutName" th:value="${workout.name}">
-                <input type="hidden" name="workoutId" th:value="${workout.id}">
-                <td><input type="submit" value="Modify"></td>
-            </form>
+
 
             <td>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#popup">
-                    Delete Workout
+                    Delete
                 </button>
             </td>
             <div class="modal" id="popup" tabindex="-1" role="dialog">
@@ -85,14 +69,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Are You shure You want to delete this workout?</p>
+                            <p>Are You shure You want to delete this pupil?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                             <form action="/deleteWorkout" method="get">
                                 <button type="submit" class="btn btn-danger">YES
                                 </button>
-                                <input type="hidden" name="workoutId" th:value="${workout.id}">
+                                <input type="hidden" name="pupilId" th:value="${pupilId}">
                             </form>
                         </div>
                     </div>
