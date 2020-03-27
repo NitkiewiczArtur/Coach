@@ -19,14 +19,18 @@ import java.util.List;
 @Controller
 public class MainController {
 
+
+    private final CoachRepository coachRepository;
+    private final UserService userService;
+    private final WorkoutService workoutService;
+
+
     @Autowired
-    CoachRepository coachRepository;
-    @Autowired
-    UserService userService;
-    @Autowired
-    WorkoutService workoutService;
-    @Autowired
-    ExerciseResultService exerciseResultService;
+    public MainController(CoachRepository coachRepository, UserService userService, WorkoutService workoutService) {
+        this.coachRepository = coachRepository;
+        this.userService = userService;
+        this.workoutService = workoutService;
+    }
 
     @GetMapping("/main")
     public ModelAndView getMainView(Model model) {

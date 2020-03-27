@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutDto {
+
     private Long id;
     private List<Exercise> exercises = new ArrayList<>();
 

@@ -17,10 +17,11 @@ import java.util.List;
 
 @Service
 public class WorkoutService {
-    private ExerciseResultRepository exerciseResultRepository;
-    private WorkoutRepository workoutRepository;
-    private UserService userService;
-    private ExerciseRepository exerciseRepository;
+
+    private final ExerciseResultRepository exerciseResultRepository;
+    private final WorkoutRepository workoutRepository;
+    private final UserService userService;
+    private final ExerciseRepository exerciseRepository;
 
     @Autowired
     public WorkoutService(WorkoutRepository workoutRepository, UserService userService, ExerciseRepository exerciseRepository, ExerciseResultRepository exerciseResultRepository) {

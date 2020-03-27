@@ -27,17 +27,23 @@ import java.util.Map;
 
 @Controller
 public class WorkoutController {
-    @Autowired
-    WorkoutService workoutService;
-    @Autowired
-    UserService userService;
-    @Autowired
-    ExerciseResultService exerciseResultService;
-    @Autowired
-    WorkoutCalculatorImpl workoutCalculatorImpl;
-    @Autowired
-    ExerciseRepository exerciseRepository;
 
+    private final WorkoutService workoutService;
+    private final UserService userService;
+    private final ExerciseResultService exerciseResultService;
+    private final WorkoutCalculatorImpl workoutCalculatorImpl;
+    private final ExerciseRepository exerciseRepository;
+
+    @Autowired
+    public WorkoutController(WorkoutService workoutService, UserService userService, ExerciseResultService exerciseResultService,
+                             WorkoutCalculatorImpl workoutCalculatorImpl, ExerciseRepository exerciseRepository) {
+
+        this.workoutService = workoutService;
+        this.userService = userService;
+        this.exerciseResultService = exerciseResultService;
+        this.workoutCalculatorImpl = workoutCalculatorImpl;
+        this.exerciseRepository = exerciseRepository;
+    }
 
     @GetMapping("/addWorkoutResult")
     public String showAddWorkoutResultPanel(@RequestParam("workoutId") Long workoutId, Model model, @RequestParam("workoutDay") String workoutDay) throws ParseException, NoDateInsertedException{

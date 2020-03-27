@@ -12,10 +12,15 @@ import java.util.List;
 
 @Service
 public class ExerciseResultService {
+
+    private final ExerciseResultRepository exerciseResultRepository;
+    private final WorkoutRepository workoutRepository;
+
     @Autowired
-    ExerciseResultRepository exerciseResultRepository;
-    @Autowired
-    WorkoutRepository workoutRepository;
+    public ExerciseResultService(ExerciseResultRepository exerciseResultRepository, WorkoutRepository workoutRepository) {
+        this.exerciseResultRepository = exerciseResultRepository;
+        this.workoutRepository = workoutRepository;
+    }
 
     public List<ExerciseResult> getAllExerciseResultsByWorkoutId(Long workoutId){
         return exerciseResultRepository.getAllByWorkout_Id(workoutId);
