@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class WorkoutController {
+public class    WorkoutController {
 
     private final WorkoutService workoutService;
     private final UserService userService;

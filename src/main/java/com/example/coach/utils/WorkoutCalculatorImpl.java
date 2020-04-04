@@ -1,12 +1,10 @@
 package com.example.coach.utils;
 
-import com.example.coach.model.Exercise;
 import com.example.coach.model.ExerciseResult;
 import com.example.coach.repository.ExerciseRepository;
 import com.example.coach.service.ExerciseResultService;
 import com.example.coach.service.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

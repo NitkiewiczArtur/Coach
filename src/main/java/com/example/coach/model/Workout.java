@@ -1,8 +1,12 @@
 package com.example.coach.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
-
+@Getter
+@Setter
 @Entity
 public class Workout {
     @Id
@@ -24,41 +28,4 @@ public class Workout {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Long getId() {
-        return id;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Exercise> getExercises() {
-        return exercises;
-    }
-
-    public void setExercises(List<Exercise> exercises) {
-        this.exercises = exercises;
-    }
-
-    public List<ExerciseResult> getExerciseResults() {
-        return exerciseResults;
-    }
-
-    public void setExerciseResults(List<ExerciseResult> exerciseResults) {
-        this.exerciseResults = exerciseResults;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User users) {
-        this.user = users;
-    }
 }

@@ -2,8 +2,7 @@ package com.example.coach.controllers;
 
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
-import com.example.coach.repository.CoachRepository;
-import com.example.coach.service.ExerciseResultService;
+import com.example.coach.service.CoachService;
 import com.example.coach.service.UserService;
 import com.example.coach.service.WorkoutService;
 import com.example.coach.utils.Utils;
@@ -20,14 +19,14 @@ import java.util.List;
 public class MainController {
 
 
-    private final CoachRepository coachRepository;
+    private final CoachService coachService;
     private final UserService userService;
     private final WorkoutService workoutService;
 
 
     @Autowired
-    public MainController(CoachRepository coachRepository, UserService userService, WorkoutService workoutService) {
-        this.coachRepository = coachRepository;
+    public MainController(CoachService coachService, UserService userService, WorkoutService workoutService) {
+        this.coachService = coachService;
         this.userService = userService;
         this.workoutService = workoutService;
     }
@@ -61,7 +60,7 @@ public class MainController {
     }
     private boolean isCoach(){
         User currentlyLoggedUser = Utils.getUser(userService);
-        if(coachRepository.findByLogin(currentlyLoggedUser.getLogin()) !=null)
+        if(coachService.getCoachByLogin(currentlyLoggedUser.getLogin()) !=null)
         return true;
        else return false;
 

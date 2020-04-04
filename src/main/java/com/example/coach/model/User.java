@@ -29,4 +29,13 @@ public class User {
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles;
+
+    public User() { }
+
+    public User(String name, String surname, String password, String login) {
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.login = login;
+    }
 }

@@ -3,10 +3,11 @@ INSERT INTO coach (id, login)
 VALUES (3, 'czacza');
 
 INSERT INTO user (id, name, surname, password, login, coach_id)
-VALUES (1, 'Arkadiusz' , 'Lizak' , 'password', 'arli', 3);
+VALUES (1, 'Arkadiusz' , 'Lizak' , '$2a$10$hJ.qo42R/eW/t0lDPhDoh.SsZ6HShhccL0pniUK5Xgj2BBn/DOPgm', 'arli', 3);
 INSERT INTO user (id, name, surname, password, login)
-VALUES (2, 'Czarek', 'Czarnecko', 'password', 'czacza');
-
+VALUES (2, 'Czarek', 'Czarnecko', '$2a$10$3fzDREamr7gsKsoLIaquvu6CdgE13.PDbsNgGYc3N0bl77UfDUR0m', 'czacza');
+INSERT INTO user (id, name, surname, password, login)
+VALUES (3, 'Test' , 'Testerski' , '$2a$10$hJ.qo42R/eW/t0lDPhDoh.SsZ6HShhccL0pniUK5Xgj2BBn/DOPgm', 'test_user');
 
 
 INSERT INTO role (id, name )
@@ -20,6 +21,8 @@ INSERT INTO user_role
 VALUES (2, 1);
 INSERT INTO user_role
 VALUES (2, 2);
+INSERT INTO user_role
+VALUES (3, 1);
 
 INSERT INTO exercise(id, name )
 VALUES(1, 'przysiady');

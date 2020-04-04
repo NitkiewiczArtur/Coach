@@ -5,8 +5,13 @@ application dedicated for athletes for measurement and analyse of lifting workou
 ## Getting Started
 
 Copy/download the repository from github and launch CoachApplication main method.
-To login use following account:
-Login : arli \
+To login use following accounts:
+Pupil account:
+Login : arli 
+Password: password
+
+Coach account:
+Login: czacza
 Password: password
 
 ## Running the tests

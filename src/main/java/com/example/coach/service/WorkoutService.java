@@ -1,18 +1,16 @@
 package com.example.coach.service;
 
-import com.example.coach.DTO.WorkoutDto;
 import com.example.coach.model.Exercise;
 import com.example.coach.model.User;
 import com.example.coach.model.Workout;
+import com.example.coach.repository.WorkoutRepository;
 import com.example.coach.repository.ExerciseRepository;
 import com.example.coach.repository.ExerciseResultRepository;
-import com.example.coach.repository.WorkoutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

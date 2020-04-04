@@ -2,7 +2,6 @@ package com.example.coach.repository;
 
 import com.example.coach.model.Exercise;
 import com.example.coach.model.Workout;
-import org.hibernate.jdbc.Work;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//??? adnotacja?
 
+@Repository
 public interface WorkoutRepository extends JpaRepository<Workout, Long> {
     void deleteById(Long id);
 
