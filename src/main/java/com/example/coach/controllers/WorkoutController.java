@@ -138,11 +138,11 @@ public class    WorkoutController {
     }
 
     @GetMapping("/showWorkoutResults")
-    public String showWorkoutReults(Model model, @RequestParam String workoutId) {
+    public String showWorkoutReults(Model model, @RequestParam Long workoutId) {
 
-        Workout workoutToShow = workoutService.getWorkoutById(Long.parseLong(workoutId));
+        Workout workoutToShow = workoutService.getWorkoutById(workoutId);
         model.addAttribute("workoutToShow", workoutToShow);
-        Map<Date, Double> workoutResultsVMap = workoutCalculatorImpl.getWorkoutVMap(workoutToShow.getUser().getId(), Long.parseLong(workoutId));
+        Map<Date, Double> workoutResultsVMap = workoutCalculatorImpl.getWorkoutVMap(workoutToShow.getUser().getId(), workoutId);
         model.addAttribute("surveyMap", workoutResultsVMap);
         model.addAttribute("currentlyLoggedUser", Utils.getUser(userService));
 
@@ -179,6 +179,7 @@ public class    WorkoutController {
         model.addAttribute("exercisesForm", exercisesForm);
         model.addAttribute("exerciseToAdd", exercise);
         model.addAttribute("workoutName", workoutName);
+
         return "modify-workout";
     }
     @PostMapping("/modifyWorkout/addExercise")

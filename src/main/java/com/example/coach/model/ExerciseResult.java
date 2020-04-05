@@ -1,10 +1,13 @@
 package com.example.coach.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "exercise_result")
 public class ExerciseResult {
@@ -26,57 +29,4 @@ public class ExerciseResult {
     @Column(name = "day_of_training")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dayOfTraining;
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public Workout getWorkout() {
-        return workout;
-    }
-
-    public void setWorkout(Workout workout) {
-        this.workout = workout;
-    }
-
-    public Exercise getExercise() {
-        return exercise;
-    }
-
-    public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
-    }
-
-    public double getLoad() {
-        return load;
-    }
-
-    public void setLoad(double load) {
-        this.load = load;
-    }
-
-    public int getReps() {
-        return reps;
-    }
-
-    public void setReps(int reps) {
-        this.reps = reps;
-    }
-
-    public Integer getTimeInSeconds() {
-        return timeInSeconds;
-    }
-
-    public void setTimeInSeconds(Integer timeInSeconds) {
-        this.timeInSeconds = timeInSeconds;
-    }
-
-    public Date getDayOfTraining() {
-        return dayOfTraining;
-    }
-
-    public void setDayOfTraining(Date dayOfTraining) {
-        this.dayOfTraining = dayOfTraining;
-    }
 }

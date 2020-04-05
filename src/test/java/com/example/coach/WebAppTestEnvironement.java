@@ -3,6 +3,7 @@ import javax.annotation.Resource;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.example.coach.model.User;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -59,7 +60,6 @@ public class WebAppTestEnvironement {
                         user,
                         user.getPassword(),
                         user.getAuthorities());
-
         return authentication;
     }
 
