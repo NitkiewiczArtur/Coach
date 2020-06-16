@@ -74,7 +74,7 @@ public class    WorkoutController {
 
         exerciseResultService.addExerciseResult(exerciseResultToAdd, workoutId, date);
 
-        return "redirect:/add-workout-result?workoutId=" + workoutId + "&workoutDay=" + workoutDay;
+        return "redirect:/addWorkoutResult?workoutId=" + workoutId + "&workoutDay=" + workoutDay;
     }
 
     @GetMapping("/createWorkout")
@@ -134,7 +134,7 @@ public class    WorkoutController {
         if(exerciseToAdd.getName().isEmpty()) throw new NoExcerciseNameInsertedException();
         workoutService.addExerciseToWorkout(exerciseToAdd, newWorkoutId);
 
-        return "redirect:/create-workout?workoutName=" + workoutName + "&createdWorkoutId=" + newWorkoutId;
+        return "redirect:/createWorkout?workoutName=" + workoutName + "&createdWorkoutId=" + newWorkoutId;
     }
 
     @GetMapping("/showWorkoutResults")
@@ -188,12 +188,12 @@ public class    WorkoutController {
 
         workoutService.addExerciseToWorkout(exerciseToAdd, workoutId);
 
-        return "redirect:/modify-workout?workoutName=" + workoutName + "&workoutId=" + workoutId;
+        return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
     }
     @PostMapping("/modifyWorkout/removeExercise")
     public String removeExercise(@ModelAttribute("exerciseToRemoveId") Long exerciseToRemoveId, @RequestParam("workoutId") Long workoutId, @RequestParam("workoutName") String workoutName, Model model) {
         workoutService.deleteExerciseFromWorkout(exerciseToRemoveId);
 
-        return "redirect:/modify-workout?workoutName=" + workoutName + "&workoutId=" + workoutId;
+        return "redirect:/modifyWorkout?workoutName=" + workoutName + "&workoutId=" + workoutId;
     }
 }
